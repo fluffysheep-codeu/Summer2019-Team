@@ -88,6 +88,8 @@ Important Takeaways from the videos:
 
 ## Learning the Server
 
-The server is compiled using maven and deployed to Google App Engine. The server can be deployed "headless", or no client ui attached to it. The server code generally handles any interaction with Google App Engine such as storing User data or redirect a user to a different web page based on some criteria.
+The server is compiled using maven and deployed to Google App Engine. This project uses Java as its main server language. When looking up documentation, always remember to preface your search query with Java so that you get the most accurate results.
 
-TODO(brianch): Find resources that help with the server side learning.
+Google App Engine provides several layers of APIs and services that allows this project to scale. Please [watch this videp](https://youtu.be/ytT2-kL9v2o) to get a better understanding of what some of the APIs and services at our disposal. At a minimum, we will be using Datastore to store all data and Servlets to handle the requests from the client.
+
+[Next read the Project Overview](project-overview.md)
