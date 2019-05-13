@@ -14,8 +14,16 @@ class User {
   }
 }
 
-/** The initial state of the user when the page first loads. */
-const initalUserState = new User(false, null);
+/**
+ * @param user The new user state.
+ * @return An action to set the user.
+ */
+const setUser = function(user) {
+  return {
+    type: UserActions.SET_USER,
+    user
+  };
+};
 
 /**
  * Sets the redux user to the user state.
@@ -24,7 +32,12 @@ const initalUserState = new User(false, null);
  * @param action.user The new state of the user.
  * @return The new state of the user.
  */
-const handleSetUser = (state, action) => Object.assign({}, state, action.user);
+const handleSetUser = function(state, action) {
+  return Object.assign({}, state, action.user);
+};
+
+/** The initial state of the user when the page first loads. */
+const initalUserState = new User(false, null);
 
 /**
  * A reducer that handles actions on the state of the user.
@@ -32,7 +45,7 @@ const handleSetUser = (state, action) => Object.assign({}, state, action.user);
  * @param action Some action to perform on the user.
  * @param action.type The type of action to perform on the user.
  */
-const userReducer = (state = initalUserState, action) => {
+const userReducer = function(state = initalUserState, action) {
   switch (action.type) {
     case UserActions.SET_USER:
       return handleSetUser(state, action);
@@ -41,23 +54,14 @@ const userReducer = (state = initalUserState, action) => {
   }
 };
 
-/**
- * @param user The new user state.
- * @return An action to set the user.
- */
-const setUser = user => ({
-  type: UserActions.SET_USER,
-  user
-});
-
 /** Classes and Constants */
 export default User;
 
 /** Constants */
 export { UserActions };
 
-/** Reducers */
-export { userReducer };
-
 /** Actions */
 export { setUser };
+
+/** Reducers */
+export { userReducer };

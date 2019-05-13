@@ -9,10 +9,10 @@ class Contributor {
   }
 
   /** Prints the object in json format. */
-  toJson = () => {
+  toJson() {
     const { name, description } = this;
     return { name, description };
-  };
+  }
 }
 
 /** Map of all contributors. */
@@ -29,7 +29,9 @@ const initialContributorsState = {
  * A reducer that handles actions on the state of the contributor.
  * @param state The state of contributors.
  */
-const contributorsReducer = (state = initialContributorsState) => state;
+const contributorsReducer = function(state = initialContributorsState) {
+  return state;
+};
 
 export { contributorsReducer };
 export default Contributor;

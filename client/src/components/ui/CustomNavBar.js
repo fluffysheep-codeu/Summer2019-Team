@@ -17,17 +17,17 @@ class CustomNavBar extends Component {
       email: null
     };
   }
-  componentDidMount = () => {
+  componentDidMount() {
     this.setState({ ...this.state, isFetching: true });
     this.fetchLoginStatus();
-  };
+  }
 
   /** Fetches the login status of the current user. */
-  fetchLoginStatus = () =>
+  fetchLoginStatus() {
     fetch(LOGIN_STATUS)
-      .then(response => {
-        return response.status === SERVER_OK ? response.json() : null;
-      })
+      .then(response =>
+        response.status === SERVER_OK ? response.json() : null
+      )
       .then(status => {
         if (status) {
           this.setState({
@@ -40,37 +40,29 @@ class CustomNavBar extends Component {
           console.log('Error: Server is unavailable.');
         }
       });
+  }
 
-  /** Renders a login or logout button depending on the user's login status. */
-  renderLoginLogoutUi = () => {
+  render() {
     const { isFetching, isLoggedIn, email } = this.state;
-    return !isFetching && isLoggedIn && email ? (
-      // The user has logged in successfully.
-      <a href={LOGOUT}>Logout</a>
-    ) : (
-      <a href={LOGIN}>Sign in</a>
-    );
-  };
+    const homeUi = <NavLink to={HOME}>Home</NavLink>;
+    const aboutUi = <NavLink to={ABOUT}>About Our Team</NavLink>;
+    const logoutUi = <a href={LOGOUT}>Logout</a>;
+    const loginUi = <a href={LOGIN}>Sign in</a>;
+    const loginLogoutUi =
+      !isFetching && isLoggedIn && email ? logoutUi : loginUi;
 
-  render = () => (
-    <div className='Navbar'>
-      <nav>
-        <ul>
-          <li>
-            <NavLink exact to={HOME}>
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to={ABOUT}>
-              About Our Team
-            </NavLink>
-          </li>
-          <li>{this.renderLoginLogoutUi()}</li>
-        </ul>
-      </nav>
-    </div>
-  );
+    return (
+      <div className='CustomNavBar'>
+        <nav>
+          <ul>
+            <li>{homeUi}</li>
+            <li>{aboutUi}</li>
+            <li>{loginLogoutUi}</li>
+          </ul>
+        </nav>
+      </div>
+    );
+  }
 }
 
 export default CustomNavBar;
