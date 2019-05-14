@@ -16,9 +16,9 @@
 -->
 
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-  <!-- Application id corresponds to the App Engine id. -->
+  <!-- [CHANGE] Application id corresponds to the App Engine id. -->
   <application>su19-codeu-30-3140</application>
-  <!-- Change the version to deploy a production build. -->
+  <!-- [CHANGE] the version to deploy a production build. -->
   <version>dev</version>
   <threadsafe>false</threadsafe>
   <sessions-enabled>true</sessions-enabled>
