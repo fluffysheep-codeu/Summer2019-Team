@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { SERVER_OK } from 'constants/webCodes.js';
 import { ABOUT, HOME, LOGIN, LOGIN_STATUS, LOGOUT } from 'constants/links.js';
+import { setIsFetching, setIsLoggedIn, setEmail } from 'reducers/user.js';
 
 /** The common navbar ui used throughout the application. */
 class CustomNavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      /** Whether this navbar is fetching login status. */
-      isFetching: false,
-      /** Whether the user is logged in. */
-      isLoggedIn: null,
-      /** The user's email. */
-      email: null
-    };
-  }
   componentDidMount() {
-    this.setState({ ...this.state, isFetching: true });
+    const { setIsFetching } = this.props;
+
+    setIsFetching(true);
     this.fetchLoginStatus();
   }
 
@@ -29,13 +23,12 @@ class CustomNavBar extends Component {
         response.status === SERVER_OK ? response.json() : null
       )
       .then(status => {
+        const { setIsFetching, setEmail, setIsLoggedIn } = this.props;
+
+        setIsFetching(false);
         if (status) {
-          this.setState({
-            ...this.state,
-            isFetching: false,
-            isLoggedIn: status.isLoggedIn,
-            email: status.email
-          });
+          setIsLoggedIn(status.isLoggedIn);
+          setEmail(status.email);
         } else {
           console.log('Error: Server is unavailable.');
         }
@@ -43,13 +36,13 @@ class CustomNavBar extends Component {
   }
 
   render() {
-    const { isFetching, isLoggedIn, email } = this.state;
+    const { isFetching, isLoggedIn } = this.props;
+
     const homeUi = <NavLink to={HOME}>Home</NavLink>;
-    const aboutUi = <NavLink to={ABOUT}>About Our Team</NavLink>;
+    const aboutUi = <NavLink to={ABOUT}>About the Team</NavLink>;
     const logoutUi = <a href={LOGOUT}>Logout</a>;
     const loginUi = <a href={LOGIN}>Sign in</a>;
-    const loginLogoutUi =
-      !isFetching && isLoggedIn && email ? logoutUi : loginUi;
+    const loginLogoutUi = !isFetching && isLoggedIn ? logoutUi : loginUi;
 
     return (
       <div className='CustomNavBar'>
@@ -65,4 +58,40 @@ class CustomNavBar extends Component {
   }
 }
 
-export default CustomNavBar;
+CustomNavBar.propTypes = {
+  /** Whether the user data is being fetched from the server. */
+  isFetching: PropTypes.bool,
+  /** Whether the  user is logged in. */
+  isLoggedIn: PropTypes.bool,
+  /** The email of the user. */
+  email: PropTypes.string,
+  /** A function to set isFetching in redux store. */
+  setIsFetching: PropTypes.func,
+  /** A function to set isLoggedIn in redux store. */
+  setIsLoggedIn: PropTypes.func,
+  /** A function to set the user's email in redux store. */
+  setEmail: PropTypes.func
+};
+
+/** Maps redux store state to class props. */
+const mapStateToProps = function(state) {
+  return {
+    isFetching: state.user.isFetching,
+    isLoggedIn: state.user.isLoggedIn,
+    email: state.user.email
+  };
+};
+
+/** Maps redux store dispatch functions to class props. */
+const mapDispatchToProps = function(dispatch) {
+  return {
+    setIsFetching: v => dispatch(setIsFetching(v)),
+    setIsLoggedIn: v => dispatch(setIsLoggedIn(v)),
+    setEmail: v => dispatch(setEmail(v))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CustomNavBar);

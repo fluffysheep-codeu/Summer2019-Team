@@ -1,57 +1,80 @@
 /** An enumeration of actions to modify user data. */
 const UserActions = {
-  SET_USER: 1
+  SET_IS_FETCHING: 1,
+  SET_IS_LOGGED_IN: 2,
+  SET_EMAIL: 3
 };
 
 /** Client representation of a user. */
 class User {
-  constructor(isLoggedOn, email) {
+  constructor() {
+    /** Whether the user's data is being fetched. */
+    this.isFetching = false;
+
     /** Whether the user is logged on. */
-    this.isLoggedOn = isLoggedOn;
+    this.isLoggedIn = false;
 
     /** The email of the user. */
-    this.email = email;
+    this.email = null;
+  }
+
+  /** Prints the object in json format. */
+  toJson() {
+    const { isFetching, isLoggedIn, email } = this;
+    return { isFetching, isLoggedIn, email };
   }
 }
-
-/**
- * @param user The new user state.
- * @return An action to set the user.
- */
-const setUser = function(user) {
-  return {
-    type: UserActions.SET_USER,
-    user
-  };
-};
-
-/**
- * Sets the redux user to the user state.
- *
- * @param state The previous state of the user.
- * @param action.user The new state of the user.
- * @return The new state of the user.
- */
-const handleSetUser = function(state, action) {
-  return Object.assign({}, state, action.user);
-};
-
-/** The initial state of the user when the page first loads. */
-const initalUserState = new User(false, null);
 
 /**
  * A reducer that handles actions on the state of the user.
  * @param state The state of the user.
  * @param action Some action to perform on the user.
- * @param action.type The type of action to perform on the user.
  */
-const userReducer = function(state = initalUserState, action) {
+const userReducer = function(state = new User(), action) {
   switch (action.type) {
-    case UserActions.SET_USER:
-      return handleSetUser(state, action);
+    case UserActions.SET_IS_FETCHING:
+      return { ...state, isFetching: action.isFetching };
+    case UserActions.SET_IS_LOGGED_IN:
+      return { ...state, isLoggedIn: action.isLoggedIn };
+    case UserActions.SET_EMAIL:
+      return { ...state, email: action.email };
     default:
       return state;
   }
+};
+
+/**
+ * Whether the user data is currently be fetched by the server.
+ * @param isFetching A boolean of whether the user's data is being fetched.
+ * @return An action to store the fetching status.
+ */
+const setIsFetching = function(isFetching) {
+  return {
+    type: UserActions.SET_IS_FETCHING,
+    isFetching
+  };
+};
+
+/**
+ * @param isLoggedIn A boolean whether the user is logged on.
+ * @return An action to store the logged on state.
+ */
+const setIsLoggedIn = function(isLoggedIn) {
+  return {
+    type: UserActions.SET_IS_LOGGED_IN,
+    isLoggedIn
+  };
+};
+
+/**
+ * @param email A string representing the user's email.
+ * @return An action to store the user's email.
+ */
+const setEmail = function(email) {
+  return {
+    type: UserActions.SET_EMAIL,
+    email
+  };
 };
 
 /** Classes and Constants */
@@ -61,7 +84,7 @@ export default User;
 export { UserActions };
 
 /** Actions */
-export { setUser };
+export { setIsFetching, setIsLoggedIn, setEmail };
 
 /** Reducers */
 export { userReducer };
