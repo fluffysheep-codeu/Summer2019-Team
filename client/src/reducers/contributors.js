@@ -34,7 +34,7 @@ class Contributor {
 /** Map of all contributors. */
 const initialContributorsState = {
   1: new Contributor('Brian Chen (Project Advisor)', 'Hi I am Brian').toJson(),
-  2: new Contributor('Name1', 'Description').toJson(),
+  2: new Contributor('Alex Kim', 'Hi I am Alex').toJson(),
   3: new Contributor('Name2', 'Description').toJson(),
   4: new Contributor('Name3', 'Description').toJson(),
   5: new Contributor('Name4', 'Description').toJson(),
