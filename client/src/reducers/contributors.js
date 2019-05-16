@@ -34,7 +34,15 @@ class Contributor {
 /** Map of all contributors. */
 const initialContributorsState = {
   1: new Contributor('Brian Chen (Project Advisor)', 'Hi I am Brian').toJson(),
-  2: new Contributor('Name1', 'Description').toJson(),
+  2: new Contributor(
+    'Alex Kim',
+    'Hi I am Alex. I am a rising junior at Rensselaer Polytechnic Institute,' +
+      ' studying Computer Science and Mathematics. My interests within CS field' +
+      ' is mostly Machine Learning, Deep Learning, and Data Analytics. The math theory behind' +
+      ' models and neural nets is what I find the most interesting. Other interests' +
+      ' include Ice Hockey, Golf, Cooking, and video games. I also love to read about' +
+      ' comics and have an obsession with the Marvel Cinematic Universe.'
+  ).toJson(),
   3: new Contributor('Name2', 'Description').toJson(),
   4: new Contributor('Name3', 'Description').toJson(),
   5: new Contributor('Name4', 'Description').toJson(),
