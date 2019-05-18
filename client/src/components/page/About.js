@@ -31,6 +31,7 @@ const renderContributorUi = function(contributor, id) {
     <TeamIntroCard
       key={id}
       name={contributor.name}
+      subtitle={contributor.subtitle}
       description={contributor.description}
       profilePic={contributor.profilePic}
     />

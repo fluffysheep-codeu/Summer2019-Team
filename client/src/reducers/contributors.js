@@ -18,21 +18,35 @@ import brianPic from 'statics/images/brianPic.jpeg';
 
 /** A contributor to this project. */
 class Contributor {
-  constructor(name, description, profilePic) {
+  constructor(name, description) {
     /** The display name of the contributor. */
     this.name = name;
+
+    this.subtitle = null;
 
     /** A description of the contributor. */
     this.description = description;
 
     /** A profile image of the contributor. */
+    this.profilePic = null;
+  }
+
+  /** Builder pattern to set the subtitle. */
+  setSubtitle(subtitle) {
+    this.subtitle = subtitle;
+    return this;
+  }
+
+  /** Builder patternto set the profile pic. */
+  setProfilePic(profilePic) {
     this.profilePic = profilePic;
+    return this;
   }
 
   /** Prints the object in json format. */
   toJson() {
-    const { name, description, profilePic } = this;
-    return { name, description, profilePic };
+    const { name, subtitle, description, profilePic } = this;
+    return { name, subtitle, description, profilePic };
   }
 }
 
@@ -46,9 +60,11 @@ const initialContributorsState = {
       'and server code in both C++ and Java. I enjoy watching TV shows and ' +
       'have been pretty disappointed by the last season of GOT (thusfar). ' +
       'One day I want to open a restaurant, but I do not know how to cook ' +
-      'well so...',
-    brianPic
-  ).toJson(),
+      'well so...'
+  )
+    .setProfilePic(brianPic)
+    .setSubtitle('linkedin.com/in/brianyiingchen')
+    .toJson(),
   2: new Contributor(
     'Alex Kim',
     'Hi I am Alex. I am a rising junior at Rensselaer Polytechnic Institute, ' +
