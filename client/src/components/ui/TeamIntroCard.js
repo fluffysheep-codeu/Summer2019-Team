@@ -23,9 +23,14 @@ import PropTypes from 'prop-types';
  * @return The html representation of the TeamIntroCard.
  */
 const TeamIntroCard = function(props) {
+  const profilePic = props.profilePic ? (
+    <img src={props.profilePic} alt='Profile' />
+  ) : null;
+
   return (
     <div className='TeamIntroCard'>
       <h2>{props.name}</h2>
+      {profilePic}
       <p>{props.description}</p>
     </div>
   );
@@ -35,7 +40,9 @@ TeamIntroCard.propTypes = {
   /** The name of the team member. */
   name: PropTypes.string,
   /** A description about the team member. */
-  description: PropTypes.string
+  description: PropTypes.string,
+  /** The source of the profile pic. */
+  profilePic: PropTypes.string
 };
 
 export default TeamIntroCard;

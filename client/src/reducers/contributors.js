@@ -14,26 +14,41 @@
  * limitations under the License.
  */
 
+import brianPic from 'statics/images/brianPic.jpeg';
+
 /** A contributor to this project. */
 class Contributor {
-  constructor(name, description) {
+  constructor(name, description, profilePic) {
     /** The display name of the contributor. */
     this.name = name;
 
     /** A description of the contributor. */
     this.description = description;
+
+    /** A profile image of the contributor. */
+    this.profilePic = profilePic;
   }
 
   /** Prints the object in json format. */
   toJson() {
-    const { name, description } = this;
-    return { name, description };
+    const { name, description, profilePic } = this;
+    return { name, description, profilePic };
   }
 }
 
 /** Map of all contributors. */
 const initialContributorsState = {
-  1: new Contributor('Brian Chen (Project Advisor)', 'Hi I am Brian').toJson(),
+  1: new Contributor(
+    'Brian Chen (Project Advisor)',
+    'Hi I am Brian the PA for Team 30. I work on Stadia at Google. I enjoy ' +
+      'playing video games, eating, and sleeping. I was primarily an Android ' +
+      'developer but I have since expanded my experience to include Web, iOS,' +
+      'and server code in both C++ and Java. I enjoy watching TV shows and ' +
+      'have been pretty disappointed by the last season of GOT (thusfar). ' +
+      'One day I want to open a restaurant, but I do not know how to cook ' +
+      'well so...',
+    brianPic
+  ).toJson(),
   2: new Contributor(
     'Alex Kim',
     'Hi I am Alex. I am a rising junior at Rensselaer Polytechnic Institute, ' +

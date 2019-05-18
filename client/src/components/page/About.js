@@ -19,7 +19,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import TeamIntroCard from 'components/ui/TeamIntroCard.js';
-import Contributor from 'reducers/contributors.js';
 
 /**
  * @param contributor A single contributor that exists in the
@@ -33,6 +32,7 @@ const renderContributorUi = function(contributor, id) {
       key={id}
       name={contributor.name}
       description={contributor.description}
+      profilePic={contributor.profilePic}
     />
   );
 };
@@ -55,7 +55,7 @@ class About extends Component {
 }
 
 About.propTypes = {
-  contributors: PropTypes.arrayOf(PropTypes.instanceOf(Contributor))
+  contributors: PropTypes.object
 };
 
 /** Maps redux store state to class props. */
