@@ -19,15 +19,14 @@ package com.google.codeu.servlets;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
-import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/** Redirects the user to the Google logout page, which then redirects to the homepage. */
 @WebServlet("/gap/logout")
 public class LogoutServlet extends HttpServlet {
-  private static final Logger log = Logger.getLogger(LogoutServlet.class.getName());
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

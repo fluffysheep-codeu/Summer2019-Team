@@ -20,12 +20,14 @@
  */
 
 /** Client link to the about page. */
-export const ABOUT = '/about';
+export const ABOUT_US = '/aboutus';
 /** Client link to the home page. */
 export const HOME = '/';
 /** Google App Engine link to the login servlet. */
 export const LOGIN = '/gap/login';
 /** Google App Engine link to the login status servlet. */
-export const LOGIN_STATUS = '/gap/login_status';
+export const LOGIN_STATUS = '/gap/login-status';
 /** Google App Engine link to the logout servlet. */
 export const LOGOUT = '/gap/logout';
+/** Client link to the user's page. */
+export const USER_PAGE = '/userpage';

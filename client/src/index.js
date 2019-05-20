@@ -20,7 +20,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { devToolsEnhancer } from 'redux-devtools-extension';
 
-import 'index.css';
+import 'css/index.css';
 import Root from 'components/container/Root.js';
 import rootReducer from 'reducers/root.js';
 import * as serviceWorker from 'serviceWorker.js';

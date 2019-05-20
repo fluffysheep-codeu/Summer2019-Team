@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
 Copyright 2019 Google Inc.
 
@@ -15,15 +14,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.google.codeu</groupId>
   <artifactId>codeu-react-starter-project</artifactId>
+  <!-- [BUILD]: Change dev to prod if building to prod. -->
   <version>dev</version>
   <packaging>war</packaging>
+
+  <name>codeu-starter-project</name>
+  <url>http://maven.apache.org</url>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -34,16 +36,12 @@ limitations under the License.
 
   <dependencies>
 
-    <!-- Project Dependencies -->
-
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
-
-    <!-- Google Cloud Dependencies -->
 
     <dependency>
       <groupId>com.google.appengine</groupId>
@@ -53,31 +51,18 @@ limitations under the License.
     </dependency>
 
     <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.8.3</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-datastore</artifactId>
       <version>1.52.0</version>
       <scope>compile</scope>
     </dependency>
 
-    <!-- Google Dependencies -->
-
-    <dependency>
-      <groupId>com.google.protobuf</groupId>
-      <artifactId>protobuf-java</artifactId>
-      <version>3.7.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.googlecode.protobuf-java-format</groupId>
-      <artifactId>protobuf-java-format</artifactId>
-      <version>1.4</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>27.1-jre</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -98,8 +83,7 @@ limitations under the License.
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <!-- [BUILD]: Update output directory to codeu-react-starter-project-[build] when
-              changing builds. -->
+              <!-- [BUILD]: Change -dev to -prod if launching to prod. -->
               <outputDirectory>target/codeu-react-starter-project-dev</outputDirectory>
               <resources>
                 <resource>
@@ -107,27 +91,6 @@ limitations under the License.
                   <filtering>true</filtering>
                 </resource>
               </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>com.github.os72</groupId>
-        <artifactId>protoc-jar-maven-plugin</artifactId>
-        <version>3.7.0.2</version>
-        <executions>
-          <execution>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <addProtoSources>all</addProtoSources>
-              <includeMavenTypes>direct</includeMavenTypes>
-              <inputDirectories>
-                <include>../shared</include>
-              </inputDirectories>
             </configuration>
           </execution>
         </executions>

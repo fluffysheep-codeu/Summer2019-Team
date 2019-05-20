@@ -13,36 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.google.codeu.servlets;
 
-import com.google.codeu.proto.LoginStatus;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.protobuf.util.JsonFormat;
+import com.google.gson.JsonObject;
 import java.io.IOException;
-import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/gap/login_status")
+/**
+ * Returns login data as JSON, e.g. {"isLoggedIn": true, "username": "alovelace@codeustudents.com"}
+ */
+@WebServlet("/gap/login-status")
 public class LoginStatusServlet extends HttpServlet {
-  private static final Logger log = Logger.getLogger(LoginStatusServlet.class.getName());
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    JsonObject jsonObject = new JsonObject();
+
     UserService userService = UserServiceFactory.getUserService();
-    boolean isLoggedIn = userService.isUserLoggedIn();
-
-    LoginStatus.Builder status =
-        LoginStatus.newBuilder().setIsLoggedIn(userService.isUserLoggedIn());
-
-    if (isLoggedIn) {
-      status.setEmail(userService.getCurrentUser().getEmail());
+    if (userService.isUserLoggedIn()) {
+      jsonObject.addProperty("isLoggedIn", true);
+      jsonObject.addProperty("username", userService.getCurrentUser().getEmail());
+    } else {
+      jsonObject.addProperty("isLoggedIn", false);
     }
+
     response.setContentType("application/json");
-    response.getWriter().println(JsonFormat.printer().print(status.build()));
+    response.getWriter().println(jsonObject.toString());
   }
 }

@@ -21,7 +21,7 @@ const styles = function() {
   };
 };
 
-class TeamIntroCard extends React.Component {
+class ContributorIntro extends React.Component {
   render() {
     const { classes, name, subtitle, profilePic, description } = this.props;
 
@@ -41,12 +41,17 @@ class TeamIntroCard extends React.Component {
   }
 }
 
-TeamIntroCard.propTypes = {
+ContributorIntro.propTypes = {
+  /** Required by material-io. */
   classes: PropTypes.object.isRequired,
+  /** The name of contributor. */
   name: PropTypes.string.isRequired,
+  /** The subtitle of the contributor (ex. linkedin url). */
   subtitle: PropTypes.string,
-  description: PropTypes.string.isRequired,
+  /** Description of the contributor. */
+  description: PropTypes.string,
+  /** Profile picture url. */
   profilePic: PropTypes.string
 };
 
-export default withStyles(styles)(TeamIntroCard);
+export default withStyles(styles)(ContributorIntro);

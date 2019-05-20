@@ -20,15 +20,20 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { SERVER_OK } from 'constants/webCodes.js';
-import { ABOUT, HOME, LOGIN, LOGIN_STATUS, LOGOUT } from 'constants/links.js';
-import { setIsFetching, setIsLoggedIn, setEmail } from 'reducers/user.js';
+import {
+  ABOUT_US,
+  HOME,
+  LOGIN,
+  LOGIN_STATUS,
+  LOGOUT,
+  USER_PAGE
+} from 'constants/links.js';
+import { HIDDEN } from 'constants/css.js';
+import { UserDataAction, storeUserData } from 'reducers/userData.js';
 
 /** The common navbar ui used throughout the application. */
 class CustomNavBar extends Component {
   componentDidMount() {
-    const { setIsFetching } = this.props;
-
-    setIsFetching(true);
     this.fetchLoginStatus();
   }
 
@@ -39,12 +44,9 @@ class CustomNavBar extends Component {
         response.status === SERVER_OK ? response.json() : null
       )
       .then(status => {
-        const { setIsFetching, setEmail, setIsLoggedIn } = this.props;
-
-        setIsFetching(false);
+        const { storeUserData } = this.props;
         if (status) {
-          setIsLoggedIn(status.isLoggedIn);
-          setEmail(status.email);
+          storeUserData(UserDataAction.SET_USER_EMAIL, status.username);
         } else {
           console.log('Error: Server is unavailable.');
         }
@@ -52,21 +54,29 @@ class CustomNavBar extends Component {
   }
 
   render() {
-    const { isFetching, isLoggedIn } = this.props;
-
-    const homeUi = <NavLink to={HOME}>Home</NavLink>;
-    const aboutUi = <NavLink to={ABOUT}>About the Team</NavLink>;
-    const logoutUi = <a href={LOGOUT}>Logout</a>;
-    const loginUi = <a href={LOGIN}>Sign in</a>;
-    const loginLogoutUi = !isFetching && isLoggedIn ? logoutUi : loginUi;
+    const { userEmail } = this.props.userData;
+    const hideIfSignedIn = userEmail ? HIDDEN : null;
+    const hideIfSignedOut = !userEmail ? HIDDEN : null;
 
     return (
       <div className='CustomNavBar'>
         <nav>
           <ul>
-            <li>{homeUi}</li>
-            <li>{aboutUi}</li>
-            <li>{loginLogoutUi}</li>
+            <li>
+              <NavLink to={HOME}>Home</NavLink>
+            </li>
+            <li>
+              <NavLink to={ABOUT_US}>About our Team</NavLink>
+            </li>
+            <li className={hideIfSignedOut}>
+              <NavLink to={USER_PAGE + '?user=' + userEmail}>Your Page</NavLink>
+            </li>
+            <li className={hideIfSignedIn}>
+              <a href={LOGIN}>Sign in</a>
+            </li>
+            <li className={hideIfSignedOut}>
+              <a href={LOGOUT}>Logout</a>
+            </li>
           </ul>
         </nav>
       </div>
@@ -75,35 +85,21 @@ class CustomNavBar extends Component {
 }
 
 CustomNavBar.propTypes = {
-  /** Whether the user data is being fetched from the server. */
-  isFetching: PropTypes.bool,
-  /** Whether the  user is logged in. */
-  isLoggedIn: PropTypes.bool,
-  /** The email of the user. */
-  email: PropTypes.string,
-  /** A function to set isFetching in redux store. */
-  setIsFetching: PropTypes.func,
-  /** A function to set isLoggedIn in redux store. */
-  setIsLoggedIn: PropTypes.func,
-  /** A function to set the user's email in redux store. */
-  setEmail: PropTypes.func
+  /** The user's data stored in redux. */
+  userData: PropTypes.object,
+  /** A function to set the user data in redux store. */
+  storeUserData: PropTypes.func
 };
 
 /** Maps redux store state to class props. */
 const mapStateToProps = function(state) {
-  return {
-    isFetching: state.user.isFetching,
-    isLoggedIn: state.user.isLoggedIn,
-    email: state.user.email
-  };
+  return { userData: state.userData };
 };
 
-/** Maps redux store dispatch functions to class props. */
+/** Maps actions to userData.js */
 const mapDispatchToProps = function(dispatch) {
   return {
-    setIsFetching: v => dispatch(setIsFetching(v)),
-    setIsLoggedIn: v => dispatch(setIsLoggedIn(v)),
-    setEmail: v => dispatch(setEmail(v))
+    storeUserData: (action, param) => dispatch(storeUserData(action, param))
   };
 };
 

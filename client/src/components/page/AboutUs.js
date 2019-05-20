@@ -18,17 +18,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import TeamIntroCard from 'components/ui/TeamIntroCard.js';
+import ContributorIntro from 'components/ui/ContributorIntro.js';
 
 /**
- * @param contributor A single contributor that exists in the
- * root redux store.
- * @param {number} id A unique id for the contributor.
- * @return The html representation of a contributor's introduction.
+ * @param contributor A contributor defined in reducers/contributors.js.
+ * @param id A unique id for the contributor.
+ * @return The html representation of a contributor's intro.
  */
-const renderContributorUi = function(contributor, id) {
+const createContributorUi = function(contributor, id) {
   return (
-    <TeamIntroCard
+    <ContributorIntro
       key={id}
       name={contributor.name}
       subtitle={contributor.subtitle}
@@ -39,29 +38,30 @@ const renderContributorUi = function(contributor, id) {
 };
 
 /** Renders the /about page. */
-class About extends Component {
+class AboutUs extends Component {
   render() {
     const { contributors } = this.props;
-    const renderedContributorListUi = contributors.keys.map(id =>
-      renderContributorUi(contributors[id], id)
+    const contributorsListUi = contributors.keys.map(id =>
+      createContributorUi(contributors[id], id)
     );
 
     return (
       <div className='container'>
-        <h1 className='center'>About the Team</h1>
-        {renderedContributorListUi}
+        <h1 className='center'>About Our Team</h1>
+        {contributorsListUi}
       </div>
     );
   }
 }
 
-About.propTypes = {
+AboutUs.propTypes = {
+  /** A json representation of all contributors on our team. */
   contributors: PropTypes.object
 };
 
-/** Maps redux store state to class props. */
+/** Maps contributor data from redux to AboutUs. */
 const mapStateToProps = function(state) {
   return { contributors: state.contributors };
 };
 
-export default connect(mapStateToProps)(About);
+export default connect(mapStateToProps)(AboutUs);

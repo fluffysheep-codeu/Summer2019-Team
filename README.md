@@ -3,6 +3,7 @@
 Please read the [documentation](https://fluffysheep-codeu.github.io/Summer2019-Team30/) for details and setup for this project.
 
 ## Cloning the Repo
+
 1. Open a terminal and navigate to where you want to put this repository.
 2. Run `git clone https://github.com/fluffysheep-codeu/Summer2019-Team30.git`
 3. This will put you on the master branch.
@@ -19,18 +20,9 @@ Please read the [documentation](https://fluffysheep-codeu.github.io/Summer2019-T
 3. Open a _NEW_ terminal window and navigate to the repository root.
 4. Run these commands to start the React client.
 
-   If this is your first time running the repo after cloning then run :
-   
    ```
    cd client
    npm install
-   npm start
-   ```
-
-   Otherwise you can usually run:
-   
-   ```
-   cd client
    npm start
    ```
 

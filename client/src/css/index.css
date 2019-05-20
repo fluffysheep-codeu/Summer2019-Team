@@ -14,17 +14,24 @@
  * limitations under the License.
  */
 
-/**
- * @file Combines all reducers into the root reducer. Newly created reducers
- * should be combined here.
- */
+/** Prevent the page from becoming too wide. */
+body {
+  max-width: 600px;
+}
 
-import { combineReducers } from 'redux';
+/** Remove bullet points from navigation bar. */
+nav ul {
+  list-style-type: none;
+  padding-left: 0;
+}
 
-import contributors from 'reducers/contributors.js';
-import userData from 'reducers/userData.js';
+/** Keep navigation menu on one line. */
+nav li {
+  display: inline-block;
+  margin-right: 10px;
+}
 
-// Note: combineReducers will call each reducer 3 times at the start to probe
-// for errors. This really only affects debugging via breakpoints.
-// See https://github.com/reduxjs/redux/issues/729.
-export default combineReducers({ userData, contributors });
+/** Used to hide certain elements. */
+.hidden {
+  display: none;
+}

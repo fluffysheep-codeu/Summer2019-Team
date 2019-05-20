@@ -16,68 +16,40 @@
 
 import brianPic from 'statics/images/brianPic.jpeg';
 
-/** A contributor to this project. */
-class Contributor {
-  constructor(name, description) {
-    /** The display name of the contributor. */
-    this.name = name;
-
-    this.subtitle = null;
-
-    /** A description of the contributor. */
-    this.description = description;
-
-    /** A profile image of the contributor. */
-    this.profilePic = null;
-  }
-
-  /** Builder pattern to set the subtitle. */
-  setSubtitle(subtitle) {
-    this.subtitle = subtitle;
-    return this;
-  }
-
-  /** Builder patternto set the profile pic. */
-  setProfilePic(profilePic) {
-    this.profilePic = profilePic;
-    return this;
-  }
-
-  /** Prints the object in json format. */
-  toJson() {
-    const { name, subtitle, description, profilePic } = this;
-    return { name, subtitle, description, profilePic };
-  }
-}
+/** @return A json representation of our team's contributor. */
+const createContributor = function(name, subtitle, description, profilePic) {
+  return { name, subtitle, description, profilePic };
+};
 
 /** Map of all contributors. */
 const initialContributorsState = {
-  1: new Contributor(
+  1: createContributor(
     'Brian Chen (Project Advisor)',
+    'linkedin.com/brianyiingchen',
     'Hi I am Brian the PA for Team 30. I work on Stadia at Google. I enjoy ' +
       'playing video games, eating, and sleeping. I was primarily an Android ' +
       'developer but I have since expanded my experience to include Web, iOS,' +
       'and server code in both C++ and Java. I enjoy watching TV shows and ' +
       'have been pretty disappointed by the last season of GOT (thusfar). ' +
       'One day I want to open a restaurant, but I do not know how to cook ' +
-      'well so...'
-  )
-    .setProfilePic(brianPic)
-    .setSubtitle('linkedin.com/in/brianyiingchen')
-    .toJson(),
-  2: new Contributor(
+      'well so...',
+    brianPic
+  ),
+  2: createContributor(
     'Alex Kim',
+    null,
     'Hi I am Alex. I am a rising junior at Rensselaer Polytechnic Institute, ' +
       'studying Computer Science and Mathematics. My interests within CS ' +
       'field is mostly Machine Learning, Deep Learning, and Data Analytics. ' +
       'The math theory behind models and neural nets is what I find the most ' +
       'interesting. Other interests include Ice Hockey, Golf, Cooking, and ' +
       'video games. I also love to read about comics and have an obsession ' +
-      'with the Marvel Cinematic Universe.'
-  ).toJson(),
-  3: new Contributor('Name2', 'Description').toJson(),
-  4: new Contributor('Name3', 'Description').toJson(),
-  5: new Contributor('Name4', 'Description').toJson(),
+      'with the Marvel Cinematic Universe.',
+    null
+  ),
+  3: createContributor('Teammate B Name', null, null, null),
+  4: createContributor('Teammate C Name', null, null, null),
+  5: createContributor('Teammate D Name', null, null, null),
   keys: [1, 2, 3, 4, 5]
 };
 
@@ -89,5 +61,4 @@ const contributorsReducer = function(state = initialContributorsState) {
   return state;
 };
 
-export { contributorsReducer };
-export default Contributor;
+export default contributorsReducer;

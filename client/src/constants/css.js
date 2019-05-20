@@ -14,19 +14,9 @@
  * limitations under the License.
  */
 
-/* Prevent the page from becoming too wide. */
-body {
-  max-width: 600px;
-}
+/**
+ * @fileoverview All css classes used in this project.
+ */
 
-/* Remove bullet points from navigation bar. */
-nav ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-/* Keep navigation menu on one line. */
-nav li {
-  display: inline-block;
-  margin-right: 10px;
-}
+/** A css class that hides an html element. */
+export const HIDDEN = 'hidden';
