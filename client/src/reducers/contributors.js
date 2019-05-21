@@ -15,6 +15,7 @@
  */
 
 import brianPic from 'statics/images/brianPic.jpeg';
+import alexPic from 'statics/images/alexPic.jpg';
 
 /** @return A json representation of our team's contributor. */
 const createContributor = function(name, subtitle, description, profilePic) {
@@ -37,7 +38,7 @@ const initialContributorsState = {
   ),
   2: createContributor(
     'Alex Kim',
-    null,
+    'https://www.linkedin.com/in/alexkim123/',
     'Hi I am Alex. I am a rising junior at Rensselaer Polytechnic Institute, ' +
       'studying Computer Science and Mathematics. My interests within CS ' +
       'field is mostly Machine Learning, Deep Learning, and Data Analytics. ' +
@@ -45,7 +46,7 @@ const initialContributorsState = {
       'interesting. Other interests include Ice Hockey, Golf, Cooking, and ' +
       'video games. I also love to read about comics and have an obsession ' +
       'with the Marvel Cinematic Universe.',
-    null
+    alexPic
   ),
   3: createContributor('Teammate B Name', null, null, null),
   4: createContributor('Teammate C Name', null, null, null),

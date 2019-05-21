@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.codeu.servlets;
+package com.google.codeu.data;
 
 import java.util.UUID;
 
