@@ -15,6 +15,7 @@
  */
 
 import brianPic from 'statics/images/brianPic.jpeg';
+import samPic from 'statics/images/SamsPic2.JPG';
 import alexPic from 'statics/images/alexPic.jpg';
 
 /** @return A json representation of our team's contributor. */
@@ -48,7 +49,15 @@ const initialContributorsState = {
       'with the Marvel Cinematic Universe.',
     alexPic
   ),
-  3: createContributor('Teammate B Name', null, null, null),
+  3: createContributor(
+    'Samantha Rydzewski',
+    'https://www.linkedin.com/in/samantharydzewski/',
+    'Hi, I am Samantha and I am a rising junior at Amherst College studying Computer' +
+      'Science. I am interested in Machine Learning, AI, and I am excited to' +
+      'learn web development. Outside of academics I enjoy dancing and figure skating,' +
+      'I also love reading sci-fi novels and watching reality TV.',
+    samPic
+  ),
   4: createContributor('Teammate C Name', null, null, null),
   5: createContributor('Teammate D Name', null, null, null),
   keys: [1, 2, 3, 4, 5]
