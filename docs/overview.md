@@ -18,10 +18,10 @@ The [Redux](https://redux.js.org/) library is used to help keep state on the cli
 
 When the client makes web requests to the server, a servlet will pick up the request. A servlet knows what requests to intercept by an annotation we provide it.
 
-For example, the login servlet below intercepts the url `localhost:8080/gap/login`, where `localhost:8080` will be replaced by the actual live website url when deployed through app engine.
+For example, the login servlet below intercepts the url `localhost:8080/api/login`, where `localhost:8080` will be replaced by the actual live website url when deployed through app engine.
 
 ```
-@WebServlet("/gap/login")
+@WebServlet("/api/login")
 public class LoginServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {}

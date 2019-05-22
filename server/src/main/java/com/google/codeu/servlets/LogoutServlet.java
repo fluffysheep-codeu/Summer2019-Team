@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Redirects the user to the Google logout page, which then redirects to the homepage. */
-@WebServlet("/gap/logout")
+@WebServlet("/api/logout")
 public class LogoutServlet extends HttpServlet {
 
   @Override

@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Returns login data as JSON, e.g. {"isLoggedIn": true, "username": "alovelace@codeustudents.com"}
  */
-@WebServlet("/gap/login-status")
+@WebServlet("/api/login-status")
 public class LoginStatusServlet extends HttpServlet {
 
   @Override

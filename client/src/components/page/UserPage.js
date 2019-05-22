@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 
 import 'css/userPage.css';
 import { HIDDEN } from 'constants/css.js';
+import { MESSAGE } from 'constants/links.js';
 import Message from 'components/ui/Message.js';
 
 /** Gets the parameters from the url. Parameters are after the ? in the url. */
@@ -54,7 +55,7 @@ class UserPage extends Component {
 
   /** Fetches messages and add them to the page. */
   fetchMessages() {
-    const url = '/gap/messages?user=' + userEmailParam;
+    const url = MESSAGE + '?user=' + userEmailParam;
     fetch(url)
       .then(response => {
         return response.json();
@@ -81,10 +82,7 @@ class UserPage extends Component {
     return (
       <div className='container'>
         <h1 className='center'>{userEmailParam}</h1>
-        <form
-          action='/gap/messages'
-          method='POST'
-          className={hiddenIfViewingOther}>
+        <form action={MESSAGE} method='POST' className={hiddenIfViewingOther}>
           Enter a new message:
           <br />
           <textarea name='text' className='message-input' />

@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Redirects the user to the Google login page or their page if they're already logged in. */
-@WebServlet("/gap/login")
+@WebServlet("/api/login")
 public class LoginServlet extends HttpServlet {
 
   @Override
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 
     // Redirect to Google login page. That page will then redirect back to /login,
     // which will be handled by the above if statement.
-    String googleLoginUrl = userService.createLoginURL("/gap/login");
+    String googleLoginUrl = userService.createLoginURL("/api/login");
     response.sendRedirect(googleLoginUrl);
   }
 }
