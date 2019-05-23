@@ -1,4 +1,4 @@
-# Team 30
+# Team 30: Tip of My Tongue
 
 Please read the [documentation](https://fluffysheep-codeu.github.io/Summer2019-Team30/) for details and setup for this project.
 
