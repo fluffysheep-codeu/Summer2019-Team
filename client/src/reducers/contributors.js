@@ -17,7 +17,7 @@
 import brianPic from 'statics/images/brianPic.jpeg';
 import samPic from 'statics/images/SamsPic2.JPG';
 import alexPic from 'statics/images/alexPic.jpg';
-
+import anthonyPic from 'statics/images/anthonyPic.jpg';
 /** @return A json representation of our team's contributor. */
 const createContributor = function(name, subtitle, description, profilePic) {
   return { name, subtitle, description, profilePic };
@@ -58,7 +58,15 @@ const initialContributorsState = {
       'I also love reading sci-fi novels and watching reality TV.',
     samPic
   ),
-  4: createContributor('Teammate C Name', null, null, null),
+  4: createContributor(
+     'Anthony Edwards',
+     'https://www.linkedin.com/in/antedw',
+     'Hi, I am Anthony, a junior attending the illustrious Johnson C. Smith University '+
+      'studying Computer Engineering, Mathematics, & Cybersecurity. I am interested in '+
+      'using Data Analytics to improve communities and web development.I am interested in '+
+      'music, food, and reading.',
+    anthonyPic
+  ),
   5: createContributor('Teammate D Name', null, null, null),
   keys: [1, 2, 3, 4, 5]
 };
