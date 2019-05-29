@@ -18,6 +18,8 @@ import brianPic from 'statics/images/brianPic.jpeg';
 import samPic from 'statics/images/SamsPic2.JPG';
 import alexPic from 'statics/images/alexPic.jpg';
 import anthonyPic from 'statics/images/anthonyPic.jpg';
+import jordansPic from 'statics/images/jordansPic.png';
+
 /** @return A json representation of our team's contributor. */
 const createContributor = function(name, subtitle, description, profilePic) {
   return { name, subtitle, description, profilePic };
@@ -67,7 +69,16 @@ const initialContributorsState = {
       'music, food, and reading.',
     anthonyPic
   ),
-  5: createContributor('Teammate D Name', null, null, null),
+  5: createContributor(
+    'Jordan Barton',
+    'https://www.linkedin.com/in/jordan-barton-88350b159/',
+    'Hello, I am Jordan Barton and I am a rising junior at the University of Maryland' +
+      'studying Computer Science. I am currently interested in UX Design and web development' +
+      'but look forward to learning more about other areas of focus in the field like Data' +
+      'Science. I enjoy doing yoga, trying new foods, and listening to music. I also enjoy hairstyling' +
+      'and hanging out with my dog.',
+    jordansPic
+  ),
   keys: [1, 2, 3, 4, 5]
 };
 
