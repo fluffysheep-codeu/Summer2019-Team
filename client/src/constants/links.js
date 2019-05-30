@@ -37,3 +37,5 @@ export const ABOUT_US = '/aboutus';
 export const HOME = '/';
 /** Client link to the user's page. */
 export const USER_PAGE = '/userpage';
+/** Client link to the stats page */
+export const STATS = '/api/stats';
