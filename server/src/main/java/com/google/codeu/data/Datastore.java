@@ -32,6 +32,9 @@ public class Datastore {
 
   private DatastoreService datastore;
 
+  /** The maximum number of message entries to fetch from Datastore. */
+  static final int MESSAGE_LIMIT = 1000;
+
   public Datastore() {
     datastore = DatastoreServiceFactory.getDatastoreService();
   }
@@ -78,5 +81,12 @@ public class Datastore {
     }
 
     return messages;
+  }
+  
+  /** Returns the total number of messages for all users. */
+  public int getTotalMessageCount() {
+    Query query = new Query("Message");
+    PreparedQuery results = datastore.prepare(query);
+    return results.countEntities(FetchOptions.Builder.withLimit(MESSAGE_LIMIT));
   }
 }
