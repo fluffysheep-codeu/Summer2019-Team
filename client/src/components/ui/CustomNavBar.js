@@ -27,7 +27,8 @@ import {
   LOGIN_STATUS,
   LOGOUT,
   USER_PAGE,
-  STATS
+  STATS,
+  COMMUNITY_PAGE
 } from 'constants/links.js';
 import { HIDDEN } from 'constants/css.js';
 import { UserDataAction, storeUserData } from 'reducers/userData.js';
@@ -74,6 +75,9 @@ class CustomNavBar extends Component {
             </li>
             <li className={hideIfSignedOut}>
               <NavLink to={USER_PAGE + '?user=' + userEmail}>Your Page</NavLink>
+            </li>
+            <li>
+              <NavLink to={COMMUNITY_PAGE}>Community Page</NavLink>
             </li>
             <li className={hideIfSignedIn}>
               <a href={LOGIN}>Sign in</a>
