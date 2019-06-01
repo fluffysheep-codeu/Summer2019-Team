@@ -21,7 +21,8 @@ import AboutUs from 'components/page/AboutUs.js';
 import CustomNavBar from 'components/ui/CustomNavBar.js';
 import Home from 'components/page/Home.js';
 import UserPage from 'components/page/UserPage.js';
-import { ABOUT_US, HOME, USER_PAGE } from 'constants/links.js';
+import ExamplePage from 'components/page/ExamplePage.js';
+import { ABOUT_US, HOME, USER_PAGE, EXAMPLE_PAGE } from 'constants/links.js';
 
 /** Renders all components in the <root> element on ../public/index.html. */
 class Root extends Component {
@@ -34,6 +35,7 @@ class Root extends Component {
             <Route exact path={HOME} component={Home} />
             <Route exact path={ABOUT_US} component={AboutUs} />
             <Route exact path={USER_PAGE} component={UserPage} />
+            <Route exact path={EXAMPLE_PAGE} component={ExamplePage} />
           </Switch>
         </div>
       </BrowserRouter>
