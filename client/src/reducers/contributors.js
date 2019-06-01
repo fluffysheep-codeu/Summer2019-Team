@@ -55,9 +55,9 @@ const initialContributorsState = {
     'Samantha Rydzewski',
     'https://www.linkedin.com/in/samantharydzewski/',
     'Hi, I am Samantha and I am a rising junior at Amherst College studying Computer' +
-      'Science. I am interested in Machine Learning, AI, and I am excited to' +
-      'learn web development. Outside of academics I enjoy dancing and figure skating,' +
-      'I also love reading sci-fi novels and watching reality TV.',
+      ' Science. I am interested in Machine Learning, AI, and I am excited to' +
+      ' learn web development. Outside of academics I enjoy dancing and figure skating,' +
+      ' I also love reading sci-fi novels and watching reality TV.',
     samPic
   ),
   4: createContributor(
