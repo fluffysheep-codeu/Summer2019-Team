@@ -21,8 +21,9 @@ import AboutUs from 'components/page/AboutUs.js';
 import CustomNavBar from 'components/ui/CustomNavBar.js';
 import Home from 'components/page/Home.js';
 import UserPage from 'components/page/UserPage.js';
-import { ABOUT_US, HOME, USER_PAGE } from 'constants/links.js';
-import { ABOUT_ME } from '../../constants/links';
+import About from 'components/page/About.js';
+import { ABOUT_US, HOME, USER_PAGE, ABOUT_ME } from 'constants/links.js';
+//import { ABOUT_ME } from '../../constants/links';
 
 /** Renders all components in the <root> element on ../public/index.html. */
 class Root extends Component {
