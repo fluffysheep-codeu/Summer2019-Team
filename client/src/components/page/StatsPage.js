@@ -41,7 +41,7 @@ class StatsPage extends Component {
   render() {
     return (
       <p>
-        {'The total number of messages: '}
+        The total number of messages:
         {this.state.messageCount}
       </p>
     );
