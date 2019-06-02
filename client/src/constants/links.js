@@ -39,3 +39,5 @@ export const HOME = '/';
 export const USER_PAGE = '/userpage';
 /** Client link to the stats page */
 export const STATS = '/api/stats';
+/** Client link to the public feed page */
+export const PUBLIC_FEED = '/api/feed';
