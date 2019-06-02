@@ -30,6 +30,8 @@ export const LOGOUT = servletPrefix + '/logout';
 export const LOGIN_STATUS = servletPrefix + '/login-status';
 /** Link to the message servlet.  */
 export const MESSAGE = servletPrefix + '/messages';
+/** Link to the example page servlet. */
+export const ABOUT_ME_SERVLET = servletPrefix + '/about';
 
 /** Client link to the about page. */
 export const ABOUT_US = '/aboutus';
@@ -40,4 +42,4 @@ export const USER_PAGE = '/userpage';
 /** Client link to the stats page */
 export const STATS = '/api/stats';
 /** Client link to their about page */
-export const ABOUT_ME = '/api/about';
+export const ABOUT_ME = '/about';
