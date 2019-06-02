@@ -25,9 +25,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 /** Provides access to the data stored in Datastore. */
@@ -94,12 +92,15 @@ public class Datastore {
   }
 
   /** Returns a list of all the users that have sent messages. */
-  public Set<String> getUsers() {
-    Set<String> users = new HashSet<>();
+  public List<String> getUsers() {
+    List<String> users = new ArrayList<>();
     Query query = new Query("Message");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
-      users.add((String) entity.getProperty("user"));
+      String name = (String) entity.getProperty("user");
+      if (!(users.contains(name))) {
+        users.add(name);
+      }
     }
     return users;
   }
