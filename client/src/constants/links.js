@@ -33,7 +33,7 @@ export const MESSAGE = servletPrefix + '/messages';
 /** Link to the stats servlet. */
 export const STATS_SERVLET = servletPrefix + '/stats';
 /** Link to the user-page servlet. */
-export const COMMUNITY_PAGE = servletPrefix + '/user-list';
+export const COMMUNITY_PAGE_SERVLET = servletPrefix + '/user-list';
 
 /** Client link to the about page. */
 export const ABOUT_US = '/aboutus';
@@ -43,3 +43,5 @@ export const HOME = '/';
 export const USER_PAGE = '/userpage';
 /** Client link to the stats page. */
 export const STATS = '/stats';
+/**Client link to the community page. */
+export const COMMUNITY_PAGE = '/user-list';
