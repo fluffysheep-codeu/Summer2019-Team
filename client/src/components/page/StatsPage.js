@@ -20,7 +20,7 @@ import { STATS_SERVLET } from 'constants/links.js';
 /** Renders the /stats page. */
 class StatsPage extends Component {
   state = {
-    content: null
+    messageCount: null
   };
 
   componentDidMount() {
@@ -34,12 +34,17 @@ class StatsPage extends Component {
         return response.json();
       })
       .then(data => {
-        this.setState({ content: data.content });
+        this.setState({ messageCount: data.messageCount });
       });
   }
 
   render() {
-    return <p>{this.state.content}</p>;
+    return (
+      <p>
+        {'The total number of messages: '}
+        {this.state.messageCount}
+      </p>
+    );
   }
 }
 
