@@ -36,7 +36,7 @@ export const STATS_SERVLET = servletPrefix + '/stats';
 export const COMMUNITY_PAGE_SERVLET = servletPrefix + '/user-list';
 export const PUBLIC_FEED = servletPrefix + '/publicfeed';
 
-export const FEED = 'api/feed';
+export const FEED = '/feed';
 /** Client link to the about page. */
 export const ABOUT_US = '/aboutus';
 /** Client link to the home page. */
