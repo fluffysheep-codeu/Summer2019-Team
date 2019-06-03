@@ -33,7 +33,7 @@
 import React, { Component } from 'react';
 import { ABOUT_ME_SERVLET } from 'constants/links.js';
 
-/** Renders the /example-page page. */
+/** Renders the /about page. */
 class About extends Component {
   state = {
     content: null
@@ -43,19 +43,34 @@ class About extends Component {
     this.fetchAbout();
   }
 
-  /** Fetches the content for the example page. */
+  /** Fetches the content for the About page. */
   fetchAbout() {
+    //const url = '/about?user=' + parameterUsername;
     fetch(ABOUT_ME_SERVLET)
       .then(response => {
         return response.json();
       })
-      .then(data => {
-        this.setState({ content: data.content });
+      .then(aboutMe => {
+        const aboutMeContainer = document.getElementById('about-me-container');
+        if (aboutMe == '') {
+          aboutMe = 'This user has not entered any information yet.';
+        }
+        aboutMeContainer.innerHTML = aboutMe;
       });
   }
 
   render() {
-    return <p>{this.state.content}</p>;
+    return (
+      <p>
+        {this.state.content}
+        <div id='about-me-container'>Loading...</div>
+        <form action='/about' method='POST'>
+          <textarea>name="about-me"</textarea>
+          <br />
+          <input type='submit' value='Submit' />
+        </form>
+      </p>
+    );
   }
 }
 
