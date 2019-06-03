@@ -15,11 +15,11 @@
  */
 
 import React, { Component } from 'react';
-import { PUBLIC_FEED} from 'constants/links.js';
+import { Message_Feed} from 'constants/links.js';
 import Message from 'components/ui/Message.js';
 
 const buildMessages = function(content) {
-  return <Message content={content} />;
+  return <Message value={content} />;
 };
 
 class PublicFeed extends Component {
@@ -32,11 +32,11 @@ class PublicFeed extends Component {
       this.fetchMessages();
     }
     fetchMessages(){
-      fetch(PUBLIC_FEED).then(response=>{
+      fetch(Message_Feed).then(response=>{
         return response.json();
       })
       .then(content=>{
-        this.setState({content : content});
+        this.setState({content: content});
       });
     }
 
@@ -53,11 +53,11 @@ class PublicFeed extends Component {
             <ul>{messageList}</ul>
             </div>
 
-                
+
 
       );
     }
   }
 
 
-export default PublicFeed;
+export default PublicFeed

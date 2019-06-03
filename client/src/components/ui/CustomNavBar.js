@@ -29,7 +29,7 @@ import {
   USER_PAGE,
   STATS,
   COMMUNITY_PAGE,
-  PUBLIC_FEED
+  Message_Feed
 } from 'constants/links.js';
 import { HIDDEN } from 'constants/css.js';
 import { UserDataAction, storeUserData } from 'reducers/userData.js';
@@ -81,7 +81,7 @@ class CustomNavBar extends Component {
               <NavLink to={COMMUNITY_PAGE}>Community Page</NavLink>
             </li>
             <li>
-              <NavLink to={PUBLIC_FEED}>Public Feed</NavLink>
+              <NavLink to={Message_Feed}>Public Feed</NavLink>
             </li>
             <li className={hideIfSignedIn}>
               <a href={LOGIN}>Sign in</a>

@@ -34,7 +34,7 @@ export const MESSAGE = servletPrefix + '/messages';
 export const STATS_SERVLET = servletPrefix + '/stats';
 /** Link to the user-page servlet. */
 export const COMMUNITY_PAGE_SERVLET = servletPrefix + '/user-list';
-export const PUBLIC_FEED = servletPrefix + '/publicfeed';
+export const Message_Feed = servletPrefix + '/feed';
 
 export const FEED = '/feed';
 /** Client link to the about page. */
