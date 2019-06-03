@@ -29,7 +29,7 @@ import {
   USER_PAGE,
   STATS,
   COMMUNITY_PAGE,
-  FEED
+  PUBLIC_FEED
 } from 'constants/links.js';
 import { HIDDEN } from 'constants/css.js';
 import { UserDataAction, storeUserData } from 'reducers/userData.js';
