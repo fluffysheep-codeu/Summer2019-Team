@@ -30,7 +30,7 @@ import {
   USER_PAGE,
   STATS,
   COMMUNITY_PAGE,
-  FEED
+  MESSAGE_FEED
 } from 'constants/links.js';
 
 /** Renders all components in the <root> element on ../public/index.html. */
@@ -46,7 +46,7 @@ class Root extends Component {
             <Route exact path={USER_PAGE} component={UserPage} />
             <Route exact path={STATS} component={StatsPage} />
             <Route exact path={COMMUNITY_PAGE} component={CommunityPage} />
-            <Route exact path={FEED} component={PublicFeed} />
+            <Route exact path={MESSAGE_FEED} component={PublicFeed} />
           </Switch>
         </div>
       </BrowserRouter>

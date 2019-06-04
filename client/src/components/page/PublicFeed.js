@@ -15,11 +15,17 @@
  */
 
 import React, { Component } from 'react';
-import { Message_Feed} from 'constants/links.js';
+import { MESSAGE_FEED_SERVLET} from 'constants/links.js';
 import Message from 'components/ui/Message.js';
+import { HIDDEN } from 'constants/css.js';
 
 const buildMessages = function(content) {
-  return <Message value={content} />;
+  return (<Message 
+  user={content.user}
+  timestamp ={ content.timestamp}
+  text ={content.text} 
+    />
+    );
 };
 
 class PublicFeed extends Component {
@@ -32,11 +38,17 @@ class PublicFeed extends Component {
       this.fetchMessages();
     }
     fetchMessages(){
-      fetch(Message_Feed).then(response=>{
+      fetch(MESSAGE_FEED_SERVLET).then(response=>{
         return response.json();
       })
       .then(content=>{
-        this.setState({content: content});
+        this.setState({content : content});
+        /**message: { user:user,
+        content:content,
+        timestamp : timestamp
+        }
+        */
+
       });
     }
 
@@ -45,11 +57,13 @@ class PublicFeed extends Component {
       const messageList = value
         ? value.map(content => buildMessages(content))
         : null;
+        const hideIfFullyLoaded = !messageList ? null: HIDDEN; 
       return (
           <div id="content">
             <h1>Message Feed</h1>
-                        <div id="message-container">Loading...</div> 
-<hr />
+                        <div className={hideIfFullyLoaded}>Loading...</div>
+
+            <hr />
             <ul>{messageList}</ul>
             </div>
 
