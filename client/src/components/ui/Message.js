@@ -25,9 +25,9 @@ const Message = function(props) {
   return (
     <div className='Message message-div'>
       <div className='message-header'>
-        {props.sender + ' - ' + new Date(props.timestamp)}
+        {props.user + ' - ' + new Date(props.timestamp)}
       </div>
-      <div className='message-body'>{props.content}</div>
+      <div className='message-body'>{props.text}</div>
     </div>
   );
 };
