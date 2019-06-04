@@ -34,7 +34,10 @@ export const MESSAGE = servletPrefix + '/messages';
 export const STATS_SERVLET = servletPrefix + '/stats';
 /** Link to the user-page servlet. */
 export const COMMUNITY_PAGE_SERVLET = servletPrefix + '/user-list';
+/** Link to the MESSAGE FEED servlet. */
+export const MESSAGE_FEED_SERVLET = servletPrefix + '/feed';
 
+export const MESSAGE_FEED = '/feed';
 /** Client link to the about page. */
 export const ABOUT_US = '/aboutus';
 /** Client link to the home page. */

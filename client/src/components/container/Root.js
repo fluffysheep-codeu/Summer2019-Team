@@ -23,12 +23,14 @@ import Home from 'components/page/Home.js';
 import UserPage from 'components/page/UserPage.js';
 import StatsPage from 'components/page/StatsPage.js';
 import CommunityPage from 'components/page/CommunityPage.js';
+import PublicFeed from 'components/page/PublicFeed.js';
 import {
   ABOUT_US,
   HOME,
   USER_PAGE,
   STATS,
-  COMMUNITY_PAGE
+  COMMUNITY_PAGE,
+  MESSAGE_FEED
 } from 'constants/links.js';
 
 /** Renders all components in the <root> element on ../public/index.html. */
@@ -44,6 +46,7 @@ class Root extends Component {
             <Route exact path={USER_PAGE} component={UserPage} />
             <Route exact path={STATS} component={StatsPage} />
             <Route exact path={COMMUNITY_PAGE} component={CommunityPage} />
+            <Route exact path={MESSAGE_FEED} component={PublicFeed} />
           </Switch>
         </div>
       </BrowserRouter>
