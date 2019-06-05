@@ -125,12 +125,15 @@ public class Datastore {
   }
 
   /** Returns a list of all the users that have sent messages. */
-  public Set<String> getUsers() {
-    Set<String> users = new HashSet<>();
+  public List<String> getUsers() {
+    List<String> users = new ArrayList<>();
     Query query = new Query("Message");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
-      users.add((String) entity.getProperty("user"));
+      String name = (String) entity.getProperty("user");
+      if (!(users.contains(name))) {
+        users.add(name);
+      }
     }
     return users;
   }
