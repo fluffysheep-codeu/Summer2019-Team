@@ -36,9 +36,9 @@ const createMessageUi = function(message) {
   return (
     <Message
       key={message.id}
-      sender={message.user}
+      user={message.user}
       timestamp={message.timestamp}
-      content={message.text}
+      text={message.text}
     />
   );
 };
