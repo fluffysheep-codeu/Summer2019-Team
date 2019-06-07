@@ -17,6 +17,10 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 
+const GOOGLE_MAPS_APP_KEY = { key: 'AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww' };
+const GOOGLEPLEX_COORD = { lat: 37.422, lng: -122.084 };
+const DEFAULT_MAP_ZOOM = 16;
+
 /** Renders the /home page. */
 class Home extends Component {
   render() {
@@ -37,9 +41,9 @@ class Home extends Component {
           Below you will find a map of Googleplex in Mountain View, California.
         </p>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww' }}
-          defaultCenter={{ lat: 37.422, lng: -122.084 }}
-          defaultZoom={16}
+          bootstrapURLKeys={GOOGLE_MAPS_APP_KEY}
+          defaultCenter={GOOGLEPLEX_COORD}
+          defaultZoom={DEFAULT_MAP_ZOOM}
         />
       </div>
     );
