@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import React, { Component } from "react";
-import { MESSAGE_FEED_SERVLET } from "constants/links.js";
-import Message from "components/ui/Message.js";
-import { HIDDEN } from "constants/css.js";
+import React, { Component } from 'react';
+import { MESSAGE_FEED_SERVLET } from 'constants/links.js';
+import Message from 'components/ui/Message.js';
+import { HIDDEN } from 'constants/css.js';
 
 const buildMessages = function(content) {
   return (
@@ -54,10 +54,9 @@ class PublicFeed extends Component {
       : null;
     const hideIfFullyLoaded = !messageList ? null : HIDDEN;
     return (
-      <div id="content">
+      <div id='content'>
         <h1>Message Feed</h1>
         <div className={hideIfFullyLoaded}>Loading...</div>
-
         <hr />
         <ul>{messageList}</ul>
       </div>

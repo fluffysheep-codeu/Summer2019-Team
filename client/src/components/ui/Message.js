@@ -27,7 +27,7 @@ const Message = function(props) {
       <div className='message-header'>
         {props.user + ' - ' + new Date(props.timestamp)}
       </div>
-      <div className='message-body'>{props.text}</div>
+      <div dangerouslySetInnerHTML={{ __html: props.text }} />
     </div>
   );
 };
@@ -37,9 +37,8 @@ Message.propTypes = {
   user: PropTypes.string,
   /** The timestamp of the message. */
   timestamp: PropTypes.number,
-  /** The content of the message.. */
+  /** The content of the message. */
   text: PropTypes.string
-
 };
 
 export default Message;
