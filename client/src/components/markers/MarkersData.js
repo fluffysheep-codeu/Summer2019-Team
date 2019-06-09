@@ -3,7 +3,7 @@ import stanTrex from 'statics/images/stanTrex.png';
 import bikeIcon from 'statics/images/bikeIcon.svg';
 
 /** Map of all the markers and the information about them */
-const ALL_MARKERS = {
+const HOME_PAGE_MARKERS = {
   1: {
     name: 'Google West Campus',
     coord: { lat: 37.423829, lng: -122.092154 },
@@ -29,4 +29,4 @@ const ALL_MARKERS = {
   keys: [1, 2, 3]
 };
 
-export default ALL_MARKERS;
+export default HOME_PAGE_MARKERS;

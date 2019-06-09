@@ -7,36 +7,19 @@ import {
   Marker,
   InfoWindow
 } from 'react-google-maps';
-import ALL_MARKERS from 'components/markers/MarkersData.js';
 
-const GOOGLE_MAPS_API_URL =
-  'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
-const DEFAULT_MAP_ZOOM = 15;
-const CUSTOM_MAP = withScriptjs(withGoogleMap(CustomMapComponent));
-const GOOGLEPLEX_COORD = { lat: 37.422, lng: -122.084 };
-
-function CustomMapComponent() {
+const CustomMap = function(props) {
   const [selectedLandmark, setSelectedLandmark] = useState(null);
-
   return (
-    <GoogleMap defaultCenter={GOOGLEPLEX_COORD} defaultZoom={DEFAULT_MAP_ZOOM}>
-      {ALL_MARKERS.keys.map(id => (
+    <GoogleMap defaultCenter={props.center} defaultZoom={props.zoom}>
+      {props.markers.keys.map(id => (
         <Marker
-          key={ALL_MARKERS[id].name}
-          position={ALL_MARKERS[id].coord}
-          title={ALL_MARKERS[id].name}
+          key={props.markers[id].name}
+          position={props.markers[id].coord}
+          title={props.markers[id].name}
           onClick={() => {
-            setSelectedLandmark(ALL_MARKERS[id]);
+            setSelectedLandmark(props.markers[id]);
           }}
-          /** This code will replace the normal markers with custom icons
-          icon={{
-            url: ALL_MARKERS[id].icon,
-            scaledSize: new window.google.maps.Size(
-              ALL_MARKERS[id].iconSize.x,
-              ALL_MARKERS[id].iconSize.y
-            )
-          }}
-          */
         />
       ))}
       {selectedLandmark && (
@@ -53,6 +36,6 @@ function CustomMapComponent() {
       )}
     </GoogleMap>
   );
-}
+};
 
-export default { GOOGLE_MAPS_API_URL, CUSTOM_MAP };
+export default withScriptjs(withGoogleMap(CustomMap));

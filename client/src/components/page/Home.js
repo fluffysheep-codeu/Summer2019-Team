@@ -15,9 +15,13 @@
  */
 
 import React, { Component } from 'react';
-import CustomMapComponent from 'components/ui/CustomMap.js';
+import CustomMap from 'components/ui/CustomMap.js';
+import HOME_PAGE_MARKERS from 'components/markers/MarkersData.js';
 
-const CustomMap = CustomMapComponent.CUSTOM_MAP;
+const GOOGLE_MAPS_API_URL =
+  'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
+const DEFAULT_MAP_ZOOM = 15;
+const GOOGLEPLEX_COORD = { lat: 37.422, lng: -122.084 };
 
 /** Renders the /home page. */
 class Home extends Component {
@@ -40,7 +44,10 @@ class Home extends Component {
           You will also see some of the popular landmarks on the Google campus.
         </p>
         <CustomMap
-          googleMapURL={CustomMapComponent.GOOGLE_MAPS_API_URL}
+          center={GOOGLEPLEX_COORD}
+          zoom={DEFAULT_MAP_ZOOM}
+          markers={HOME_PAGE_MARKERS}
+          googleMapURL={GOOGLE_MAPS_API_URL}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `500px` }} />}
           mapElement={<div style={{ height: `100%` }} />}
