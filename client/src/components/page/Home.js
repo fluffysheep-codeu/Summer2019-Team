@@ -15,17 +15,13 @@
  */
 
 import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
-
-const GOOGLE_MAPS_APP_KEY = { key: 'AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww' };
-const GOOGLEPLEX_COORD = { lat: 37.422, lng: -122.084 };
-const DEFAULT_MAP_ZOOM = 16;
+import HomeMap from './HomeMap.js';
 
 /** Renders the /home page. */
 class Home extends Component {
   render() {
     return (
-      <div className='container' style={{ height: '25vh', width: '100%' }}>
+      <div className='container' style={{ height: '50vh', width: '100%' }}>
         <h1 className='center'>CodeU Starter Project</h1>
         <p>
           This is the CodeU starter project. Click the links above to login and
@@ -39,11 +35,13 @@ class Home extends Component {
         </p>
         <p>
           Below you will find a map of Googleplex in Mountain View, California.
+          You will also see some of the popular landmarks on the Google campus.
         </p>
-        <GoogleMapReact
-          bootstrapURLKeys={GOOGLE_MAPS_APP_KEY}
-          defaultCenter={GOOGLEPLEX_COORD}
-          defaultZoom={DEFAULT_MAP_ZOOM}
+        <HomeMap.HOME_MAP
+          googleMapURL={HomeMap.GOOGLE_MAPS_API_URL}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `500px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
         />
       </div>
     );
