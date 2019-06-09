@@ -15,7 +15,9 @@
  */
 
 import React, { Component } from 'react';
-import HomeMap from './HomeMap.js';
+import CustomMapComponent from './CustomMap.js';
+
+const CustomMap = CustomMapComponent.CUSTOM_MAP;
 
 /** Renders the /home page. */
 class Home extends Component {
@@ -37,8 +39,8 @@ class Home extends Component {
           Below you will find a map of Googleplex in Mountain View, California.
           You will also see some of the popular landmarks on the Google campus.
         </p>
-        <HomeMap.HOME_MAP
-          googleMapURL={HomeMap.GOOGLE_MAPS_API_URL}
+        <CustomMap
+          googleMapURL={CustomMapComponent.GOOGLE_MAPS_API_URL}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `500px` }} />}
           mapElement={<div style={{ height: `100%` }} />}
