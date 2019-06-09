@@ -15,12 +15,15 @@
  */
 
 import React, { Component } from 'react';
+import CustomMapComponent from 'components/ui/CustomMap.js';
+
+const CustomMap = CustomMapComponent.CUSTOM_MAP;
 
 /** Renders the /home page. */
 class Home extends Component {
   render() {
     return (
-      <div className='container'>
+      <div className='container' style={{ height: '50vh', width: '100%' }}>
         <h1 className='center'>CodeU Starter Project</h1>
         <p>
           This is the CodeU starter project. Click the links above to login and
@@ -32,6 +35,16 @@ class Home extends Component {
           afraid to get creative! You could start by modifying this page to tell
           the world more about your team.
         </p>
+        <p>
+          Below you will find a map of Googleplex in Mountain View, California.
+          You will also see some of the popular landmarks on the Google campus.
+        </p>
+        <CustomMap
+          googleMapURL={CustomMapComponent.GOOGLE_MAPS_API_URL}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `500px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
       </div>
     );
   }
