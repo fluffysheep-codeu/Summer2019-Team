@@ -16,7 +16,7 @@ const ALL_MARKERS = {
     coord: { lat: 37.421903, lng: -122.084674 },
     description: 'This is Stan, the T-Rex statue.',
     icon: stanTrex,
-    iconSize: { x: 35, y: 35 }
+    iconSize: { x: 40, y: 40 }
   },
   3: {
     name: 'Permanente Creek Trail',
@@ -24,7 +24,7 @@ const ALL_MARKERS = {
     description:
       'Permanente Creek Trail connects Google to a system of bike trails.',
     icon: bikeIcon,
-    iconSize: { x: 25, y: 25 }
+    iconSize: { x: 30, y: 30 }
   },
   keys: [1, 2, 3]
 };

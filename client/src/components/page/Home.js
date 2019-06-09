@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from 'react';
-import CustomMapComponent from './CustomMap.js';
+import CustomMapComponent from 'components/ui/CustomMap.js';
 
 const CustomMap = CustomMapComponent.CUSTOM_MAP;
 
