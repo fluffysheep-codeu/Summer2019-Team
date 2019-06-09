@@ -44,8 +44,11 @@ CustomMap.propTypes = {
   center: PropTypes.object,
   /** Default zoom for the map when loaded */
   zoom: PropTypes.number,
-  /** keys for the different markers */
-  keys: PropTypes.array
+  /** Object of all the markers */
+  markers: PropTypes.object.shape({
+    /** Keys of the markers */
+    keys: PropTypes.array
+  })
 };
 
 export default withScriptjs(withGoogleMap(CustomMap));
