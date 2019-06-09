@@ -7,6 +7,7 @@ import {
   Marker,
   InfoWindow
 } from 'react-google-maps';
+import PropTypes from 'prop-types';
 
 const CustomMap = function(props) {
   const [selectedLandmark, setSelectedLandmark] = useState(null);
@@ -36,6 +37,15 @@ const CustomMap = function(props) {
       )}
     </GoogleMap>
   );
+};
+
+CustomMap.propTypes = {
+  /** The center for the map */
+  center: PropTypes.object,
+  /** Default zoom for the map when loaded */
+  zoom: PropTypes.number,
+  /** keys for the different markers */
+  keys: PropTypes.array
 };
 
 export default withScriptjs(withGoogleMap(CustomMap));
