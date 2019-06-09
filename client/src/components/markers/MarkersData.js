@@ -1,7 +1,3 @@
-import youtubeIcon from 'statics/images/youtubeIcon.png';
-import stanTrex from 'statics/images/stanTrex.png';
-import bikeIcon from 'statics/images/bikeIcon.svg';
-
 /** Map of all the markers and the information about them */
 const HOME_PAGE_MARKERS = {
   1: {
