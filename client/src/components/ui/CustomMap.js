@@ -45,7 +45,7 @@ CustomMap.propTypes = {
   /** Default zoom for the map when loaded */
   zoom: PropTypes.number,
   /** Object of all the markers */
-  markers: PropTypes.object.shape({
+  markers: PropTypes.shape({
     /** Keys of the markers */
     keys: PropTypes.array
   })
