@@ -63,9 +63,9 @@ class About extends Component {
     return (
       <p>
         {this.state.content}
-        <div id='about-me-container'>Loading...</div>
-        <form action='/about' method='POST'>
-          <textarea>name="about-me"</textarea>
+        <div id='about-me-container'>About</div>
+        <form action='/api/about' method='POST'>
+          <textarea />
           <br />
           <input type='submit' value='Submit' />
         </form>

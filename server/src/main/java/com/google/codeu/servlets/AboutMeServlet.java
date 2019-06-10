@@ -34,20 +34,23 @@ public class AboutMeServlet extends HttpServlet {
     log.info("user: " + user);
 
     if (user == null || user.equals("")) {
-      //  JsonObject empty = new JsonObject();
-      //  response.setContentType("application/json");
-      //  response.getWriter().println(empty.toString());
+       JsonObject empty = new JsonObject();
+       response.setContentType("application/json");
+       response.getWriter().println(empty.toString());
+       return;
     }
 
     User userData = datastore.getUser(user);
 
     if (userData == null || userData.getAboutMe() == null) {
-      // JsonObject empty = new JsonObject();
-      //  response.setContentType("application/json");
-      //  response.getOutputStream().println(empty.toString());
+      JsonObject empty = new JsonObject();
+       response.setContentType("application/json");
+       response.getWriter().println(empty.toString());
+       return;
     }
 
-    response.getOutputStream().println(userData.getAboutMe());
+
+   System.out.println(userData.getAboutMe());
 
     String aboutMe = "This is " + user + " 's About Me. ";
     JsonObject jsonObject = new JsonObject();
@@ -62,18 +65,19 @@ public class AboutMeServlet extends HttpServlet {
     if (!userService.isUserLoggedIn()) {
       String googleLoginUrl = userService.createLoginURL("/api/login");
       response.sendRedirect(googleLoginUrl);
-      // return;
+      return;
     }
 
     String userEmail = userService.getCurrentUser().getEmail();
-    String aboutMe = request.getParameter("about-me");
+    String aboutMe = request.getParameter("text");
 
     User user = new User(userEmail, aboutMe);
     datastore.storeUser(user);
 
     System.out.println("Saving about me for " + userEmail);
+    System.out.println(aboutMe);
     // TODO: save the data
 
-    response.sendRedirect("/user-page.html?user=" + userEmail);
+    response.sendRedirect("/userpage?user=" + userEmail);
   }
 }

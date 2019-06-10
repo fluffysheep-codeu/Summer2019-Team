@@ -22,11 +22,18 @@ import 'css/userPage.css';
 import { HIDDEN } from 'constants/css.js';
 import { MESSAGE } from 'constants/links.js';
 import Message from 'components/ui/Message.js';
+import { ABOUT_ME_SERVLET } from '../../constants/links';
 
 /** Gets the parameters from the url. Parameters are after the ? in the url. */
 const urlParams = new URLSearchParams(window.location.search);
 /** The email of the currently displayed user. */
 const userEmailParam = urlParams.get('user');
+/** Message url */
+const url1 = MESSAGE + '?user=' + userEmailParam;
+/** About url */
+const url2 = ABOUT_ME_SERVLET + '?user=' + userEmailParam;
+/** Promises */
+const promises = Promise.all([fetch(url1), fetch(url2)]);
 
 /**
  * @param message A message sent from a user with a timestamp.
@@ -46,27 +53,49 @@ const createMessageUi = function(message) {
 /** Renders the /user-page page. */
 class UserPage extends Component {
   state = {
-    messages: null
+    messages: null,
+    about: null
   };
 
   componentDidMount() {
-    this.fetchMessages();
-  }
-
-  /** Fetches messages and add them to the page. */
-  fetchMessages() {
-    const url = MESSAGE + '?user=' + userEmailParam;
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
-      .then(messages => {
-        this.setState({ messages });
+    promises
+      .then(results => Promise.all(results.map(r => r.json())))
+      .then(v => {
+        const responseMessage = v[0];
+        const responseAbout = v[1];
+        console.log(responseMessage);
+        console.log(responseAbout);
+        this.setState([{ messages: responseMessage, about: responseAbout }]);
       });
   }
 
+  /** Fetches messages and add them to the page. */
+  // fetchMessages() {
+
+  //   fetch(url)
+  //     .then(response => {
+  //       return response.json(); //messages is json
+  //     })
+  //     .then(messages => {
+  //       this.setState({ messages });
+  //     });
+  // }
+
+  // /** Fetches messages and add them to the page. */
+  // fetchAbout() {
+
+  //   fetch(url)
+  //     .then(response => {
+  //       return response.json(); //messages is json
+  //     })
+  //     .then(about => {
+  //       this.setState({ about });
+  //     });
+  // }
+
   render() {
-    const { messages } = this.state;
+    const { messages, about } = this.state;
+
     const { userEmail } = this.props.userData;
 
     // A boolean that checks whether the current logged in user is viewing
@@ -89,6 +118,18 @@ class UserPage extends Component {
           <br />
           <input type='submit' value='Submit' />
         </form>
+
+        <form
+          action={ABOUT_ME_SERVLET}
+          method='POST'
+          className={hiddenIfViewingOther}>
+          {about}
+          <br />
+          <textarea name='text' className='message-input' />
+          <br />
+          <input type='submit' value='Submit' />
+        </form>
+
         <br className={hiddenIfViewingOther} />
         <hr />
 
