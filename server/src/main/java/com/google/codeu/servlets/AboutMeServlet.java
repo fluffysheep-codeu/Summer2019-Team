@@ -26,35 +26,27 @@ public class AboutMeServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    // response.setContentType("text/html");
-
     UserService userService = UserServiceFactory.getUserService();
     String user = request.getParameter("user");
-    log.info("request: " + request);
-    log.info("user: " + user);
 
     if (user == null || user.equals("")) {
-       JsonObject empty = new JsonObject();
-       response.setContentType("application/json");
-       response.getWriter().println(empty.toString());
-       return;
+      JsonObject empty = new JsonObject();
+      response.setContentType("application/json");
+      response.getWriter().println(empty.toString());
+      return;
     }
 
     User userData = datastore.getUser(user);
 
     if (userData == null || userData.getAboutMe() == null) {
       JsonObject empty = new JsonObject();
-       response.setContentType("application/json");
-       response.getWriter().println(empty.toString());
-       return;
+      response.setContentType("application/json");
+      response.getWriter().println(empty.toString());
+      return;
     }
 
-
-   System.out.println(userData.getAboutMe());
-
-    String aboutMe = "This is " + user + " 's About Me. ";
     JsonObject jsonObject = new JsonObject();
-    jsonObject.addProperty("content", aboutMe);
+    jsonObject.addProperty("content", userData.getAboutMe());
     response.setContentType("application/json");
     response.getWriter().println(jsonObject.toString());
   }
@@ -73,10 +65,6 @@ public class AboutMeServlet extends HttpServlet {
 
     User user = new User(userEmail, aboutMe);
     datastore.storeUser(user);
-
-    System.out.println("Saving about me for " + userEmail);
-    System.out.println(aboutMe);
-    // TODO: save the data
 
     response.sendRedirect("/userpage?user=" + userEmail);
   }

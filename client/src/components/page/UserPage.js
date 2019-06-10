@@ -60,38 +60,13 @@ class UserPage extends Component {
   componentDidMount() {
     promises
       .then(results => Promise.all(results.map(r => r.json())))
-      .then(v => {
-        const responseMessage = v[0];
-        const responseAbout = v[1];
-        console.log(responseMessage);
-        console.log(responseAbout);
-        this.setState([{ messages: responseMessage, about: responseAbout }]);
+      .then(results => {
+        const [messages, about] = results;
+        this.setState({ messages, about }, () => {
+          console.log(this.state);
+        });
       });
   }
-
-  /** Fetches messages and add them to the page. */
-  // fetchMessages() {
-
-  //   fetch(url)
-  //     .then(response => {
-  //       return response.json(); //messages is json
-  //     })
-  //     .then(messages => {
-  //       this.setState({ messages });
-  //     });
-  // }
-
-  // /** Fetches messages and add them to the page. */
-  // fetchAbout() {
-
-  //   fetch(url)
-  //     .then(response => {
-  //       return response.json(); //messages is json
-  //     })
-  //     .then(about => {
-  //       this.setState({ about });
-  //     });
-  // }
 
   render() {
     const { messages, about } = this.state;
@@ -108,6 +83,8 @@ class UserPage extends Component {
       ? messages.map(message => createMessageUi(message))
       : null;
 
+    const aboutUi = about ? about.content : null;
+
     return (
       <div className='container'>
         <h1 className='center'>{userEmailParam}</h1>
@@ -123,7 +100,7 @@ class UserPage extends Component {
           action={ABOUT_ME_SERVLET}
           method='POST'
           className={hiddenIfViewingOther}>
-          {about}
+          {aboutUi}
           <br />
           <textarea name='text' className='message-input' />
           <br />
