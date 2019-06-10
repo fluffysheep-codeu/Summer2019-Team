@@ -38,6 +38,8 @@ export const COMMUNITY_PAGE_SERVLET = servletPrefix + '/user-list';
 export const MESSAGE_FEED_SERVLET = servletPrefix + '/feed';
 /** Link to the TRANSLATION servlet. */
 export const TRANSLATION_SERVLET = servletPrefix + '/translate';
+/** Link to the aboutMe servlet. */
+export const ABOUT_ME_SERVLET = servletPrefix + '/about';
 
 export const MESSAGE_FEED = '/feed';
 /** Client link to the about page. */
