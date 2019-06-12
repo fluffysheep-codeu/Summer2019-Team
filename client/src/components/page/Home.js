@@ -17,44 +17,66 @@
 import React, { Component } from 'react';
 import CustomMap from 'components/ui/CustomMap.js';
 import HOME_PAGE_MARKERS from 'components/markers/MarkersData.js';
+import {
+  withStyles,
+  MuiThemeProvider,
+  createMuiTheme
+} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import background_pasta from 'statics/images/background_pasta.jpg';
+import grey from '@material-ui/core/colors/grey';
 
 const GOOGLE_MAPS_API_URL =
   'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
 const DEFAULT_MAP_ZOOM = 15;
 const GOOGLEPLEX_COORD = { lat: 37.422, lng: -122.084 };
+const primary = grey[500];
+
+const styles = {
+  container: {
+    height: '50vh',
+    width: '100%',
+    background: `url(${background_pasta})`
+  }
+};
+
+const theme = createMuiTheme({
+  palette: { primary: { main: grey[400] } },
+  typography: {
+    fontSize: 20
+  }
+});
 
 /** Renders the /home page. */
 class Home extends Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div className='container' style={{ height: '50vh', width: '100%' }}>
-        <h1 className='center'>CodeU Starter Project</h1>
-        <p>
-          This is the CodeU starter project. Click the links above to login and
-          visit your page. You can post messages on your page, and you can visit
-          other user pages if you have their URL.
-        </p>
-        <p>
-          This is your code now! Feel free to make changes, and don&apos;t be
-          afraid to get creative! You could start by modifying this page to tell
-          the world more about your team.
-        </p>
-        <p>
-          Below you will find a map of Googleplex in Mountain View, California.
-          You will also see some of the popular landmarks on the Google campus.
-        </p>
-        <CustomMap
-          center={GOOGLEPLEX_COORD}
-          zoom={DEFAULT_MAP_ZOOM}
-          markers={HOME_PAGE_MARKERS}
-          googleMapURL={GOOGLE_MAPS_API_URL}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `500px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-        />
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div className={classes.container}>
+          <Typography
+            align='center'
+            variant='h2'
+            className='center'
+            color='primary'>
+            Tip of Your Tongue
+          </Typography>
+
+          <CustomMap
+            center={GOOGLEPLEX_COORD}
+            zoom={DEFAULT_MAP_ZOOM}
+            markers={HOME_PAGE_MARKERS}
+            googleMapURL={GOOGLE_MAPS_API_URL}
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={
+              <div style={{ height: `300px`, width: '300px' }} />
+            }
+            mapElement={<div style={{ height: `100%` }} />}
+          />
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
 
-export default Home;
+export default withStyles(styles)(Home);
