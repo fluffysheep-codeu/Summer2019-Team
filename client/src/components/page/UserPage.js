@@ -23,7 +23,6 @@ import { HIDDEN } from 'constants/css.js';
 import { MESSAGE } from 'constants/links.js';
 import Message from 'components/ui/Message.js';
 import { ABOUT_ME_SERVLET } from '../../constants/links';
-
 /** Gets the parameters from the url. Parameters are after the ? in the url. */
 const urlParams = new URLSearchParams(window.location.search);
 /** The email of the currently displayed user. */
@@ -84,33 +83,43 @@ class UserPage extends Component {
     const aboutUi = about ? about.content : null;
 
     return (
-      <div className='container'>
-        <h1 className='center'>{userEmailParam}</h1>
-        <form action={MESSAGE} method='POST' className={hiddenIfViewingOther}>
-          Enter a new message:
-          <br />
-          <textarea name='text' className='message-input' />
-          <br />
-          <input type='submit' value='Submit' />
-        </form>
+      <html>
+        <head>
+          <script src='https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js' />
+        </head>
+        <body>
+          <div className='container'>
+            <h1 className='center'>{userEmailParam}</h1>
+            <form
+              action={MESSAGE}
+              method='POST'
+              className={hiddenIfViewingOther}>
+              Enter a new message:
+              <br />
+              <textarea name='text' className='message-input' />
+              <br />
+              <input type='submit' value='Submit' />
+            </form>
 
-        <form
-          action={ABOUT_ME_SERVLET}
-          method='POST'
-          className={hiddenIfViewingOther}>
-          {aboutUi}
-          <br />
-          <textarea name='text' className='message-input' />
-          <br />
-          <input type='submit' value='Submit' />
-        </form>
+            <form
+              action={ABOUT_ME_SERVLET}
+              method='POST'
+              className={hiddenIfViewingOther}>
+              {aboutUi}
+              <br />
+              <textarea name='text' className='message-input' />
+              <br />
+              <input type='submit' value='Submit' />
+            </form>
 
-        <br className={hiddenIfViewingOther} />
-        <hr />
+            <br className={hiddenIfViewingOther} />
+            <hr />
 
-        <p className={hiddenIfHasMessages}>This user has no posts yet.</p>
-        {messagesUi}
-      </div>
+            <p className={hiddenIfHasMessages}>This user has no posts yet.</p>
+            {messagesUi}
+          </div>
+        </body>
+      </html>
     );
   }
 }

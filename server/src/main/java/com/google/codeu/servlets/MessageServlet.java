@@ -75,14 +75,15 @@ public class MessageServlet extends HttpServlet {
 
     String user = userService.getCurrentUser().getEmail();
     //Disallows any HTML content
-    String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
-    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+    String text = Jsoup.clean(request.getParameter("text"), Whitelist.basic());
+    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.basic());
 
 
     //Replacing Info
-    String parsedText = userText.replace("(bold)", "<strong>").replace("(/bold)", "</strong>");
+    String parsedText = userText.replace("[b]", "<strong>").replace("[/b]",
+       "</strong>").replace("[i]", "<i>").replace("[/i]", "</i>");
     //make sure generated HTML is valid and all tags are closed
-    String cleanedContent = Jsoup.clean(parsedText, Whitelist.none().addTags("strong"));
+    String cleanedContent = Jsoup.clean(parsedText, Whitelist.basic().addTags("strong").addTags("i"));
 		//replacing text in textbox with cleaned content
     userText = cleanedContent;
 

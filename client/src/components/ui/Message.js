@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
  * A message card.
  * @return The html representation of the card.
  */
+
 const Message = function(props) {
   return (
     <div className='Message message-div'>
