@@ -23,6 +23,8 @@ import { HIDDEN } from 'constants/css.js';
 import { MESSAGE } from 'constants/links.js';
 import Message from 'components/ui/Message.js';
 import { ABOUT_ME_SERVLET } from '../../constants/links';
+import CKEditor from 'ckeditor4-react';
+
 /** Gets the parameters from the url. Parameters are after the ? in the url. */
 const urlParams = new URLSearchParams(window.location.search);
 /** The email of the currently displayed user. */
@@ -85,7 +87,7 @@ class UserPage extends Component {
     return (
       <html>
         <head>
-          <script src='https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js' />
+          <script src='ckeditor/ckeditor.js' />
         </head>
         <body>
           <div className='container'>
@@ -96,7 +98,7 @@ class UserPage extends Component {
               className={hiddenIfViewingOther}>
               Enter a new message:
               <br />
-              <textarea name='text' className='message-input' />
+              <textarea name='text' id='messageIN' className='message-input' />
               <br />
               <input type='submit' value='Submit' />
             </form>
@@ -117,6 +119,11 @@ class UserPage extends Component {
 
             <p className={hiddenIfHasMessages}>This user has no posts yet.</p>
             {messagesUi}
+          </div>
+
+          <div className='App'>
+            <h2>Using CKEditor 4 in React</h2>
+            <CKEditor data='<p>Hello from CKEditor 4!</p>' />
           </div>
         </body>
       </html>

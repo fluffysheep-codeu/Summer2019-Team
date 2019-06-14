@@ -74,20 +74,23 @@ public class MessageServlet extends HttpServlet {
     }
 
     String user = userService.getCurrentUser().getEmail();
-    //Disallows any HTML content
-    String text = Jsoup.clean(request.getParameter("text"), Whitelist.basic());
-    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.basic());
+    // Disallows any HTML content
+    String text = Jsoup.clean(request.getParameter("text"), Whitelist.basicWithImages());
+    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.basicWithImages());
 
-
-    //Replacing Info
-    String parsedText = userText.replace("[b]", "<strong>").replace("[/b]",
-       "</strong>").replace("[i]", "<i>").replace("[/i]", "</i>");
-    //make sure generated HTML is valid and all tags are closed
-    String cleanedContent = Jsoup.clean(parsedText, Whitelist.basic().addTags("strong").addTags("i"));
-		//replacing text in textbox with cleaned content
+    // Replacing Info
+    String parsedText =
+        userText
+            .replace("[b]", "<strong>")
+            .replace("[/b]", "</strong>")
+            .replace("[i]", "<i>")
+            .replace("[/i]", "</i>");
+    // make sure generated HTML is valid and all tags are closed
+    String cleanedContent =
+        Jsoup.clean(parsedText, Whitelist.basicWithImages().addTags("strong").addTags("i"));
+    // replacing text in textbox with cleaned content
     userText = cleanedContent;
 
-   
     String regex = "(https?://\\S+\\.(png|jpg))";
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
