@@ -23,27 +23,27 @@ import {
   createMuiTheme
 } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import background_pasta from 'statics/images/background_pasta.jpg';
-import grey from '@material-ui/core/colors/grey';
+import background_pasta from 'statics/images/food_icon.jpg';
+import grey from '@material-ui/core/colors/lightBlue';
 
 const GOOGLE_MAPS_API_URL =
   'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
 const DEFAULT_MAP_ZOOM = 15;
 const GOOGLEPLEX_COORD = { lat: 37.422, lng: -122.084 };
-const primary = grey[500];
 
 const styles = {
   container: {
-    height: '50vh',
-    width: '100%',
+    height: '100vh',
+    width: '150%',
     background: `url(${background_pasta})`
   }
 };
 
 const theme = createMuiTheme({
-  palette: { primary: { main: grey[400] } },
+  palette: { primary: { main: grey[900] } },
   typography: {
-    fontSize: 20
+    fontSize: 20,
+    fontWeight: 1200
   }
 });
 
@@ -58,7 +58,8 @@ class Home extends Component {
             align='center'
             variant='h2'
             className='center'
-            color='primary'>
+            color='primary'
+            fontWeight='fontWeightBold'>
             Tip of Your Tongue
           </Typography>
 
