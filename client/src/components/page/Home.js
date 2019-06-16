@@ -58,24 +58,26 @@ const styles = function() {
       backgroundImage: `url(${background_pasta})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
-      backgroundPosition: 'center'
+      backgroundPosition: 'center',
+      alignItems: 'center'
     },
     paper: {
-      //margin: theme.spacing(8, 4),
+      margin: 24,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center'
     },
     avatar: {
-      //margin: theme.spacing(1),
+      margin: 24
       //backgroundColor: theme.palette.secondary.main
     },
     form: {
-      width: '100%' // Fix IE 11 issue.
-      //marginTop: theme.spacing(1)
+      width: '100%', // Fix IE 11 issue.
+      marginTop: 24
     },
     submit: {
-      //margin: theme.spacing(3, 0, 2)
+      margin: 1,
+      marginTop: 6
     }
   };
 };
@@ -87,7 +89,25 @@ class Home extends Component {
     return (
       <Grid container component='main' className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={false} sm={4} md={7} className={classes.image}>
+          <CustomMap
+            center={GOOGLEPLEX_COORD}
+            zoom={DEFAULT_MAP_ZOOM}
+            markers={HOME_PAGE_MARKERS}
+            googleMapURL={GOOGLE_MAPS_API_URL}
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={
+              <div
+                style={{
+                  height: `300px`,
+                  width: '300px',
+                  margin: 24
+                }}
+              />
+            }
+            mapElement={<div style={{ height: `100%` }} />}
+          />
+        </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -95,9 +115,6 @@ class Home extends Component {
             </Avatar>
             <Typography component='h1' variant='h5'>
               Tip of My Tongue
-            </Typography>
-            <Typography component='h1' variant='h5'>
-              Sign in
             </Typography>
             <form className={classes.form} noValidate>
               <TextField
