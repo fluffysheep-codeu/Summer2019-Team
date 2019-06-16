@@ -75,8 +75,13 @@ public class MessageServlet extends HttpServlet {
 
     String user = userService.getCurrentUser().getEmail();
     // Disallows any HTML content
-    String text = Jsoup.clean(request.getParameter("text"), Whitelist.basicWithImages());
-    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.basicWithImages());
+    String text = Jsoup.clean(request.getParameter("content"), Whitelist.basicWithImages());
+    String userText = Jsoup.clean(request.getParameter("content"), Whitelist.basicWithImages());
+
+    if (text == null || userText == null){
+      return;
+    }
+    // System.out.println(text);
 
     // Replacing Info
     String parsedText =

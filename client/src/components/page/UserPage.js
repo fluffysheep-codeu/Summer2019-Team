@@ -86,9 +86,6 @@ class UserPage extends Component {
 
     return (
       <html>
-        <head>
-          <script src='ckeditor/ckeditor.js' />
-        </head>
         <body>
           <div className='container'>
             <h1 className='center'>{userEmailParam}</h1>
@@ -98,7 +95,14 @@ class UserPage extends Component {
               className={hiddenIfViewingOther}>
               Enter a new message:
               <br />
-              <textarea name='text' id='messageIN' className='message-input' />
+              {/* Can't name textbox CKEditor Type */}
+              <CKEditor
+                textarea
+                name='text'
+                activeClass='editor'
+                message={this.state.content}
+                onChange={this.updateContent}
+              />
               <br />
               <input type='submit' value='Submit' />
             </form>
@@ -109,7 +113,7 @@ class UserPage extends Component {
               className={hiddenIfViewingOther}>
               {aboutUi}
               <br />
-              <textarea name='text' className='message-input' />
+              <textarea name='text' className='about-input' />
               <br />
               <input type='submit' value='Submit' />
             </form>
@@ -120,11 +124,11 @@ class UserPage extends Component {
             <p className={hiddenIfHasMessages}>This user has no posts yet.</p>
             {messagesUi}
           </div>
-
+          {/* 
           <div className='App'>
             <h2>Using CKEditor 4 in React</h2>
             <CKEditor data='<p>Hello from CKEditor 4!</p>' />
-          </div>
+          </div> */}
         </body>
       </html>
     );
