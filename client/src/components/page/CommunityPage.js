@@ -4,7 +4,7 @@ import UserItem from 'components/ui/UserItem.js';
 
 /** Returns the html representation of a single user. */
 const buildUserListItem = function(user) {
-  return <UserItem content={user} />;
+  return <UserItem key={user} content={user} />;
 };
 
 /** Renders the community page. */
