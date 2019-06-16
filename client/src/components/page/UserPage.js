@@ -59,7 +59,7 @@ class UserPage extends Component {
 
   componentDidMount() {
     promises
-      .then(results => Promise.all(results.map(r => r.json())))
+      .then(results => Promise.all(results.map(r => r.clone().json())))
       .then(results => {
         const [messages, about] = results;
         this.setState({ messages, about });
