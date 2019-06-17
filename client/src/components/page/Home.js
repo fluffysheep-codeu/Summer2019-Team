@@ -15,47 +15,26 @@
  */
 
 import React, { Component } from 'react';
-import CustomMap from 'components/ui/CustomMap.js';
-import HOME_PAGE_MARKERS from 'components/markers/MarkersData.js';
-import {
-  withStyles,
-  MuiThemeProvider,
-  createMuiTheme
-} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import background_pasta from 'statics/images/food_icon.jpg';
-import grey from '@material-ui/core/colors/lightBlue';
+import background_icon from 'statics/images/food_icon.jpg';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
-const GOOGLE_MAPS_API_URL =
-  'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
-const DEFAULT_MAP_ZOOM = 15;
-const GOOGLEPLEX_COORD = { lat: 37.422, lng: -122.084 };
-
-/**  const theme = createMuiTheme({
-  palette: { primary: { main: grey[900] } },
-  typography: {
-    fontSize: 20,
-    fontWeight: 1200
-  }
-}); */
 const styles = function() {
   return {
     root: {
       height: '100vh'
     },
     image: {
-      backgroundImage: `url(${background_pasta})`,
+      backgroundImage: `url(${background_icon})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -69,10 +48,9 @@ const styles = function() {
     },
     avatar: {
       margin: 24
-      //backgroundColor: theme.palette.secondary.main
     },
     form: {
-      width: '100%', // Fix IE 11 issue.
+      width: '100%',
       marginTop: 24
     },
     submit: {
@@ -89,25 +67,7 @@ class Home extends Component {
     return (
       <Grid container component='main' className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image}>
-          <CustomMap
-            center={GOOGLEPLEX_COORD}
-            zoom={DEFAULT_MAP_ZOOM}
-            markers={HOME_PAGE_MARKERS}
-            googleMapURL={GOOGLE_MAPS_API_URL}
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={
-              <div
-                style={{
-                  height: `300px`,
-                  width: '300px',
-                  margin: 24
-                }}
-              />
-            }
-            mapElement={<div style={{ height: `100%` }} />}
-          />
-        </Grid>
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -160,4 +120,8 @@ class Home extends Component {
   }
 }
 
+Home.propTypes = {
+  /** Required by material-io. */
+  classes: PropTypes.object.isRequired
+};
 export default withStyles(styles)(Home);
