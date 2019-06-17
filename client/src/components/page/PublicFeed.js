@@ -86,7 +86,7 @@ class PublicFeed extends Component {
     const hideIfFullyLoaded = !messageList ? null : HIDDEN;
     return (
       <div id='content'>
-        <h1>Message Feed</h1>
+        <h1>Post Feed</h1>
         <div className={hideIfFullyLoaded}>Loading...</div>
         <hr />
         <ul>{messageList}</ul>
