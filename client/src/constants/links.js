@@ -36,6 +36,14 @@ export const STATS_SERVLET = servletPrefix + '/stats';
 export const COMMUNITY_PAGE_SERVLET = servletPrefix + '/user-list';
 /** Link to the MESSAGE FEED servlet. */
 export const MESSAGE_FEED_SERVLET = servletPrefix + '/feed';
+/** Link to the TRANSLATION servlet. */
+export const TRANSLATION_SERVLET = servletPrefix + '/translate';
+/** Link to the aboutMe servlet. */
+export const ABOUT_ME_SERVLET = servletPrefix + '/about';
+/** Link to the markers servlet. */
+export const MARKERS_SERVLET = servletPrefix + '/markers';
+/** Link to the restaurant servlet. */
+export const RESTAURANT_SERVLET = servletPrefix + '/restaurant';
 
 export const MESSAGE_FEED = '/feed';
 /** Client link to the about page. */
