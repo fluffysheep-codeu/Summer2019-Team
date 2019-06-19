@@ -47,12 +47,12 @@ public class MessageServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.setHeader("Refresh", "0; URL=http://localhost3000/userpage?user=" + user);
     response.setContentType("application/json");
 
     String user = request.getParameter("user");
 
     if (user == null || user.equals("")) {
-      // Request is invalid, return empty array
       response.getWriter().println("[]");
       return;
     }
@@ -60,13 +60,15 @@ public class MessageServlet extends HttpServlet {
     List<Message> messages = datastore.getMessages(user);
     Gson gson = new Gson();
     String json = gson.toJson(messages);
-
+    
     response.getWriter().println(json);
+   
   }
 
   /** Stores a new {@link Message}. */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
     UserService userService = UserServiceFactory.getUserService();
     if (!userService.isUserLoggedIn()) {
       response.sendRedirect("/");
@@ -74,26 +76,19 @@ public class MessageServlet extends HttpServlet {
     }
 
     String user = userService.getCurrentUser().getEmail();
-    // Disallows any HTML content
-    String text = Jsoup.clean(request.getParameter("content"), Whitelist.basicWithImages());
-    String userText = Jsoup.clean(request.getParameter("content"), Whitelist.basicWithImages());
 
-    if (text == null || userText == null){
-      return;
-    }
-    // System.out.println(text);
+    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.basicWithImages());
 
-    // Replacing Info
     String parsedText =
         userText
             .replace("[b]", "<strong>")
             .replace("[/b]", "</strong>")
             .replace("[i]", "<i>")
             .replace("[/i]", "</i>");
-    // make sure generated HTML is valid and all tags are closed
+
     String cleanedContent =
         Jsoup.clean(parsedText, Whitelist.basicWithImages().addTags("strong").addTags("i"));
-    // replacing text in textbox with cleaned content
+
     userText = cleanedContent;
 
     String regex = "(https?://\\S+\\.(png|jpg))";
