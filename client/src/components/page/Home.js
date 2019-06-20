@@ -15,46 +15,113 @@
  */
 
 import React, { Component } from 'react';
-import CustomMap from 'components/ui/CustomMap.js';
-import HOME_PAGE_MARKERS from 'components/markers/MarkersData.js';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import background_icon from 'statics/images/food_icon.jpg';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import PropTypes from 'prop-types';
 
-const GOOGLE_MAPS_API_URL =
-  'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
-const DEFAULT_MAP_ZOOM = 15;
-const GOOGLEPLEX_COORD = { lat: 37.422, lng: -122.084 };
+const styles = function() {
+  return {
+    root: {
+      height: '100vh'
+    },
+    image: {
+      backgroundImage: `url(${background_icon})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      alignItems: 'center'
+    },
+    paper: {
+      margin: 24,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    },
+    avatar: {
+      margin: 24
+    },
+    form: {
+      width: '100%',
+      marginTop: 24
+    },
+    submit: {
+      margin: 1,
+      marginTop: 6
+    }
+  };
+};
 
 /** Renders the /home page. */
 class Home extends Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div className='container' style={{ height: '50vh', width: '100%' }}>
-        <h1 className='center'>CodeU Starter Project</h1>
-        <p>
-          This is the CodeU starter project. Click the links above to login and
-          visit your page. You can post messages on your page, and you can visit
-          other user pages if you have their URL.
-        </p>
-        <p>
-          This is your code now! Feel free to make changes, and don&apos;t be
-          afraid to get creative! You could start by modifying this page to tell
-          the world more about your team.
-        </p>
-        <p>
-          Below you will find a map of Googleplex in Mountain View, California.
-          You will also see some of the popular landmarks on the Google campus.
-        </p>
-        <CustomMap
-          center={GOOGLEPLEX_COORD}
-          zoom={DEFAULT_MAP_ZOOM}
-          markers={HOME_PAGE_MARKERS}
-          googleMapURL={GOOGLE_MAPS_API_URL}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `500px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-        />
-      </div>
+      <Grid container component='main' className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component='h1' variant='h5'>
+              Tip of My Tongue
+            </Typography>
+            <form className={classes.form} noValidate>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                id='email'
+                label='Email Address'
+                name='email'
+                autoFocus
+              />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+              />
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}>
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href='#' variant='body2'>
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+        </Grid>
+      </Grid>
     );
   }
 }
 
-export default Home;
+Home.propTypes = {
+  /** Required by material-io. */
+  classes: PropTypes.object.isRequired
+};
+export default withStyles(styles)(Home);
