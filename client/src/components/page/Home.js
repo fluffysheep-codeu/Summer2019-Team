@@ -18,44 +18,57 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import background_icon from 'statics/images/food_icon.jpg';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import PropTypes from 'prop-types';
+import grey from '@material-ui/core/colors/grey';
+import blue from '@material-ui/core/colors/blue';
+import InputBase from '@material-ui/core/InputBase';
 
 const styles = function() {
   return {
     root: {
-      height: '100vh'
-    },
-    image: {
-      backgroundImage: `url(${background_icon})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      alignItems: 'center'
+      height: '100vh',
+      width: '100%',
+      backgroundImage: `url(${background_icon})`
     },
     paper: {
-      margin: 24,
+      marginTop: 100,
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
+      height: '30%',
+      width: '75%',
+      marginLeft: '20%',
+      marginRight: '20%',
+      backgroundColor: grey[50]
     },
     avatar: {
-      margin: 24
+      margin: 24,
+      fontSize: 40
     },
     form: {
-      width: '100%',
-      marginTop: 24
+      width: '90%',
+      marginTop: 24,
+      marginLeft: 30,
+      marginRight: 30
     },
     submit: {
       margin: 1,
       marginTop: 6
+    },
+    inputRoot: {
+      width: '100%',
+      borderStyle: 'solid',
+      borderColor: blue[300]
+    },
+    inputInput: {
+      padding: '10px',
+      width: '100%'
     }
   };
 };
@@ -67,54 +80,22 @@ class Home extends Component {
     return (
       <Grid container component='main' className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component='h1' variant='h5'>
-              Tip of My Tongue
-            </Typography>
-            <form className={classes.form} noValidate>
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='email'
-                label='Email Address'
-                name='email'
-                autoFocus
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type='password'
-                id='password'
-              />
-              <Button
-                type='submit'
-                fullWidth
-                variant='contained'
-                color='primary'
-                className={classes.submit}>
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item>
-                  <Link href='#' variant='body2'>
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
-        </Grid>
+        <div className={classes.paper}>
+          <Typography className={classes.avatar} component='h1' variant='h5'>
+            Tip of My Tongue
+          </Typography>
+          <form className={classes.form} noValidate>
+            <InputBase
+              placeholder='Search…'
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+              inputProps={{ 'aria-label': 'Search' }}
+              id='outlined-named'
+            />
+          </form>
+        </div>
       </Grid>
     );
   }
