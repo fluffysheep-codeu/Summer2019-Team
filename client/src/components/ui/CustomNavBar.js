@@ -41,7 +41,7 @@ import { UserDataAction, storeUserData } from 'reducers/userData.js';
 const styles = function() {
   return {
     root: {
-      padding: 4
+      width: '100%'
     },
     link: {
       padding: 6,
@@ -139,7 +139,9 @@ CustomNavBar.propTypes = {
   /** The user's data stored in redux. */
   userData: PropTypes.object,
   /** A function to set the user data in redux store. */
-  storeUserData: PropTypes.func
+  storeUserData: PropTypes.func,
+  /** Required by material-io. */
+  classes: PropTypes.object.isRequired
 };
 
 /** Maps redux store state to class props. */
