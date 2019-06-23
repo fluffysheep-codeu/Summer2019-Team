@@ -15,9 +15,19 @@
  */
 
 import React, { Component } from 'react';
-import { MESSAGE_FEED_SERVLET, TRANSLATION_SERVLET } from 'constants/links.js';
+import {
+  MESSAGE_FEED_SERVLET,
+  TRANSLATION_SERVLET,
+  RESTAURANT_SERVLET
+} from 'constants/links.js';
 import Message from 'components/ui/Message.js';
 import { HIDDEN } from 'constants/css.js';
+import CustomMap from 'components/ui/CustomMap.js';
+
+const GOOGLE_MAPS_API_URL =
+  'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
+const DEFAULT_MAP_ZOOM = 15;
+const GOOGLEPLEX_COORD = { lat: 37.422, lng: -122.084 };
 
 const buildMessages = function(content) {
   return (
@@ -86,6 +96,23 @@ class PublicFeed extends Component {
     const hideIfFullyLoaded = !messageList ? null : HIDDEN;
     return (
       <div id='content'>
+        <h1>Make a Post</h1>
+        <hr />
+        <form action={RESTAURANT_SERVLET} method='POST'>
+          <br />
+          <textarea name='text' className='message-input' />
+          <br />
+          <input type='submit' value='Submit' />
+        </form>
+        <hr />
+        <CustomMap
+          center={GOOGLEPLEX_COORD}
+          zoom={DEFAULT_MAP_ZOOM}
+          googleMapURL={GOOGLE_MAPS_API_URL}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `500px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
         <h1>Post Feed</h1>
         <div className={hideIfFullyLoaded}>Loading...</div>
         <hr />

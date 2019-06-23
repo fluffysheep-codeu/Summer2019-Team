@@ -11,6 +11,9 @@ import PropTypes from 'prop-types';
 
 const CustomMap = function(props) {
   const [selectedLandmark, setSelectedLandmark] = useState(null);
+  if (Object.keys(props.markers).length === 0) {
+    return <GoogleMap defaultCenter={props.center} defaultZoom={props.zoom} />;
+  }
   return (
     <GoogleMap defaultCenter={props.center} defaultZoom={props.zoom}>
       {props.markers.keys.map(id => (
@@ -49,6 +52,10 @@ CustomMap.propTypes = {
     /** Keys of the markers */
     keys: PropTypes.array
   })
+};
+
+CustomMap.defaultProps = {
+  markers: {}
 };
 
 export default withScriptjs(withGoogleMap(CustomMap));
