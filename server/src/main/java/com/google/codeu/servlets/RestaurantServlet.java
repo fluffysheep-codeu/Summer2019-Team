@@ -25,7 +25,7 @@ public class RestaurantServlet extends HttpServlet {
     JsonObject jsonObject = new JsonObject();
   }
 
-   @Override
+  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.sendRedirect("/feed");
   }
