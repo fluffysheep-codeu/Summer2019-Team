@@ -36,8 +36,10 @@ const url1 = MESSAGE + '?user=' + userEmailParam;
 const url2 = ABOUT_ME_SERVLET + '?user=' + userEmailParam;
 /** Promises */
 const promises = Promise.all([fetch(url1), fetch(url2)]);
-/*data*/
-var editorText = null;
+/* User-Entered Message */
+var editorMessage = null;
+/* User-Entered About */
+var editorAbout = null;
 
 /**
  * @param message A message sent from a user with a timestamp.
@@ -56,12 +58,24 @@ const createMessageUi = function(message) {
 
 const submitMessage = function() {
   fetch(MESSAGE, {
-    method: 'post',
+    method: 'POST',
     headers: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded'
     }),
-    body: 'text=' + editorText
+    body: 'text=' + editorMessage
   });
+  window.location.reload();
+};
+
+const submitAboutMe = function() {
+  fetch(ABOUT_ME_SERVLET, {
+    method: 'POST',
+    headers: new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }),
+    body: 'text=' + editorAbout
+  });
+  window.location.reload();
 };
 /** Renders the /user-page page. */
 class UserPage extends Component {
@@ -105,21 +119,21 @@ class UserPage extends Component {
           editor={ClassicEditor}
           onInit={editor => {}}
           onChange={(event, editor) => {
-            editorText = editor.getData();
+            editorMessage = editor.getData();
           }}
         />
         <button onClick={submitMessage}>Submit</button>
         <br />
-        <form
-          action={ABOUT_ME_SERVLET}
-          method='POST'
-          className={hiddenIfViewingOther}>
-          {aboutUi}
-          <br />
-          <textarea name='text' className='about-input' />
-          <br />
-          <input type='submit' value='Submit' />
-        </form>
+        {aboutUi}
+        <CKEditor
+          editor={ClassicEditor}
+          onInit={editor => {}}
+          onChange={(event, editor) => {
+            editorAbout = editor.getData();
+            editor.config.autoParagraph = false;
+          }}
+        />
+        <button onClick={submitAboutMe}>Submit</button>
         <br className={hiddenIfViewingOther} />
         <hr />
         <p className={hiddenIfHasMessages}>This user has no posts yet.</p>

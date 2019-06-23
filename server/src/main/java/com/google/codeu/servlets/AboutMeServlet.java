@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 /** Responds with a hard-coded message for testing purposes. */
 @WebServlet("/api/about")
@@ -64,7 +66,9 @@ public class AboutMeServlet extends HttpServlet {
     String userEmail = userService.getCurrentUser().getEmail();
     String aboutMe = request.getParameter("text");
 
-    User user = new User(userEmail, aboutMe);
+    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+
+    User user = new User(userEmail, userText);
     datastore.storeUser(user);
 
     response.sendRedirect("/userpage?user=" + userEmail);
