@@ -113,6 +113,7 @@ class PublicFeed extends Component {
           containerElement={<div style={{ height: `500px` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
+      <div/>
       <div id='content' style={{ margin: 5 }}>
         <h1>Post Feed</h1>
         <div className={hideIfFullyLoaded}>Loading...</div>
