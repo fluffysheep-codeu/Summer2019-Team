@@ -18,8 +18,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 import { SERVER_OK } from 'constants/webCodes.js';
+import grey from '@material-ui/core/colors/grey';
 import {
   ABOUT_US,
   HOME,
@@ -33,6 +37,22 @@ import {
 } from 'constants/links.js';
 import { HIDDEN } from 'constants/css.js';
 import { UserDataAction, storeUserData } from 'reducers/userData.js';
+
+const styles = function() {
+  return {
+    root: {
+      width: '100%'
+    },
+    link: {
+      padding: 6,
+      textDecoration: 'none'
+    },
+    text: {
+      color: grey[300],
+      fontSize: 15
+    }
+  };
+};
 
 /** The common navbar ui used throughout the application. */
 class CustomNavBar extends Component {
@@ -60,37 +80,56 @@ class CustomNavBar extends Component {
     const { userEmail } = this.props.userData;
     const hideIfSignedIn = userEmail ? HIDDEN : null;
     const hideIfSignedOut = !userEmail ? HIDDEN : null;
+    const { classes } = this.props;
 
     return (
       <div className='CustomNavBar'>
-        <nav>
-          <ul>
-            <li>
-              <NavLink to={HOME}>Home</NavLink>
-            </li>
-            <li>
-              <NavLink to={ABOUT_US}>About our Team</NavLink>
-            </li>
-            <li>
-              <NavLink to={STATS}>Stats</NavLink>
-            </li>
-            <li className={hideIfSignedOut}>
-              <NavLink to={USER_PAGE + '?user=' + userEmail}>Your Page</NavLink>
-            </li>
-            <li>
-              <NavLink to={COMMUNITY_PAGE}>Community Page</NavLink>
-            </li>
-            <li>
-              <NavLink to={MESSAGE_FEED}>Public Feed</NavLink>
-            </li>
-            <li className={hideIfSignedIn}>
-              <a href={LOGIN}>Sign in</a>
-            </li>
-            <li className={hideIfSignedOut}>
-              <a href={LOGOUT}>Logout</a>
-            </li>
-          </ul>
-        </nav>
+        <AppBar position='static' color='primary' className={classes.root}>
+          <Toolbar>
+            <NavLink to={HOME} className={classes.link}>
+              <Typography variant='h6' className={classes.text}>
+                Home
+              </Typography>
+            </NavLink>
+            <NavLink to={ABOUT_US} className={classes.link}>
+              <Typography variant='h6' className={classes.text}>
+                About our Team
+              </Typography>
+            </NavLink>
+            <NavLink to={STATS} className={classes.link}>
+              <Typography variant='h6' className={classes.text}>
+                Stats
+              </Typography>
+            </NavLink>
+            <NavLink
+              to={USER_PAGE + '?user=' + userEmail}
+              className={`${hideIfSignedOut} ${classes.link}`}>
+              <Typography variant='h6' className={classes.text}>
+                Your Page
+              </Typography>
+            </NavLink>
+            <NavLink to={COMMUNITY_PAGE} className={classes.link}>
+              <Typography variant='h6' className={classes.text}>
+                Community Page
+              </Typography>
+            </NavLink>
+            <NavLink to={MESSAGE_FEED} className={classes.link}>
+              <Typography variant='h6' className={classes.text}>
+                Public Feed
+              </Typography>
+            </NavLink>
+            <a href={LOGIN} className={`${hideIfSignedIn} ${classes.link}`}>
+              <Typography variant='h6' className={classes.text}>
+                Sign In
+              </Typography>
+            </a>
+            <a href={LOGOUT} className={`${hideIfSignedOut} ${classes.link}`}>
+              <Typography variant='h6' className={classes.text}>
+                Logout
+              </Typography>
+            </a>
+          </Toolbar>
+        </AppBar>
       </div>
     );
   }
@@ -100,7 +139,9 @@ CustomNavBar.propTypes = {
   /** The user's data stored in redux. */
   userData: PropTypes.object,
   /** A function to set the user data in redux store. */
-  storeUserData: PropTypes.func
+  storeUserData: PropTypes.func,
+  /** Required by material-io. */
+  classes: PropTypes.object.isRequired
 };
 
 /** Maps redux store state to class props. */
@@ -118,4 +159,4 @@ const mapDispatchToProps = function(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CustomNavBar);
+)(withStyles(styles)(CustomNavBar));

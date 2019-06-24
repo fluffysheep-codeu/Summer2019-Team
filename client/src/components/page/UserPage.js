@@ -84,7 +84,7 @@ class UserPage extends Component {
     const aboutUi = about ? about.content : null;
 
     return (
-      <div className='container'>
+      <div className='container' style={{ margin: 5 }}>
         <h1 className='center'>{userEmailParam}</h1>
         <form action={MESSAGE} method='POST' className={hiddenIfViewingOther}>
           Enter a new message:

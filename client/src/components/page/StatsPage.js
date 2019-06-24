@@ -40,7 +40,7 @@ class StatsPage extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ margin: 5 }}>
         <h1>Site Statistics</h1>
         <hr />
         <p>The total number of messages: {this.state.messageCount}</p>

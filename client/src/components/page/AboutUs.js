@@ -46,7 +46,7 @@ class AboutUs extends Component {
     );
 
     return (
-      <div className='container'>
+      <div className='container' style={{ margin: 5 }}>
         <h1 className='center'>About Our Team</h1>
         {contributorsListUi}
       </div>
