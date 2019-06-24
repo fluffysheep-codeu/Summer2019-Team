@@ -95,7 +95,7 @@ class PublicFeed extends Component {
       : null;
     const hideIfFullyLoaded = !messageList ? null : HIDDEN;
     return (
-      <div id='content'>
+      <div id='content' style={{ margin: 5 }}>
         <h1>Make a Post</h1>
         <hr />
         <form action={RESTAURANT_SERVLET} method='POST'>
@@ -113,8 +113,6 @@ class PublicFeed extends Component {
           containerElement={<div style={{ height: `500px` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
-      <div/>
-      <div id='content' style={{ margin: 5 }}>
         <h1>Post Feed</h1>
         <div className={hideIfFullyLoaded}>Loading...</div>
         <hr />
