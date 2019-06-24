@@ -17,6 +17,7 @@
 /** Prevent the page from becoming too wide. */
 body {
   width: auto;
+  margin: 0;
 }
 
 /** Remove bullet points from navigation bar. */
