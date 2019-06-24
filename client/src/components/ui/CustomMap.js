@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 const CustomMap = function(props) {
   const [selectedLandmark, setSelectedLandmark] = useState(null);
-  if (Object.keys(props.markers).length === 0) {
+  if (Object.keys(props.markers).length) {
     return <GoogleMap defaultCenter={props.center} defaultZoom={props.zoom} />;
   }
   return (
