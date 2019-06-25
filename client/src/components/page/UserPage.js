@@ -130,7 +130,6 @@ class UserPage extends Component {
           onInit={editor => {}}
           onChange={(event, editor) => {
             editorAbout = editor.getData();
-            editor.config.autoParagraph = false;
           }}
         />
         <button onClick={submitAboutMe}>Submit</button>
