@@ -111,38 +111,33 @@ class UserPage extends Component {
     const aboutUi = about ? about.content : null;
 
     return (
-      <html>
+      <div className='container'>
+        <h1 className='center'>{userEmailParam}</h1>
+        Enter a new message:
+        <br />
+        <CKEditor
+          editor={ClassicEditor}
+          onInit={editor => {}}
+          onChange={(event, editor) => {
+            editorMessage = editor.getData();
+          }}
+        />
+        <button onClick={submitMessage}>Submit</button>
+        <br />
+        {aboutUi}
+        <CKEditor
+          editor={ClassicEditor}
+          onInit={editor => {}}
+          onChange={(event, editor) => {
+            editorAbout = editor.getData();
+          }}
+        />
+        <button onClick={submitAboutMe}>Submit</button>
+        <br className={hiddenIfViewingOther} />
         <hr />
-        <body>
-          <div className='container'>
-            <h1 className='center'>{userEmailParam}</h1>
-            Enter a new message:
-            <br />
-            <CKEditor
-              editor={ClassicEditor}
-              onInit={editor => {}}
-              onChange={(event, editor) => {
-                editorMessage = editor.getData();
-              }}
-            />
-            <button onClick={submitMessage}>Submit</button>
-            <br />
-            {aboutUi}
-            <CKEditor
-              editor={ClassicEditor}
-              onInit={editor => {}}
-              onChange={(event, editor) => {
-                editorAbout = editor.getData();
-              }}
-            />
-            <button onClick={submitAboutMe}>Submit</button>
-            <br className={hiddenIfViewingOther} />
-            <hr />
-            <p className={hiddenIfHasMessages}>This user has no posts yet.</p>
-            {messagesUi}
-          </div>
-        </body>
-      </html>
+        <p className={hiddenIfHasMessages}>This user has no posts yet.</p>
+        {messagesUi}
+      </div>
     );
   }
 }
