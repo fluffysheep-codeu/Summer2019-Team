@@ -67,7 +67,6 @@ public class MessageServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-
     UserService userService = UserServiceFactory.getUserService();
     if (!userService.isUserLoggedIn()) {
       response.sendRedirect("/");
@@ -76,19 +75,7 @@ public class MessageServlet extends HttpServlet {
 
     String user = userService.getCurrentUser().getEmail();
 
-    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.basicWithImages());
-
-    String parsedText =
-        userText
-            .replace("[b]", "<strong>")
-            .replace("[/b]", "</strong>")
-            .replace("[i]", "<i>")
-            .replace("[/i]", "</i>");
-
-    String cleanedContent =
-        Jsoup.clean(parsedText, Whitelist.basicWithImages().addTags("strong").addTags("i"));
-
-    userText = cleanedContent;
+    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
     String regex = "(https?://\\S+\\.(png|jpg))";
     String replacement = "<img src=\"$1\" />";
