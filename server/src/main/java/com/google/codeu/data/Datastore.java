@@ -148,13 +148,13 @@ public class Datastore {
     return results.countEntities(FetchOptions.Builder.withLimit(MESSAGE_LIMIT));
   }
 
-  /** Returns a list of all the users that have sent messages. */
+  /** Returns a list of all the users that have signed in. */
   public List<String> getUsers() {
     List<String> users = new ArrayList<>();
-    Query query = new Query("Message");
+    Query query = new Query("User");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
-      String name = (String) entity.getProperty("user");
+      String name = (String) entity.getProperty("email");
       if (!(users.contains(name))) {
         users.add(name);
       }

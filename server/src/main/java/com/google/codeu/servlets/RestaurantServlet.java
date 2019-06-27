@@ -11,9 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/api/restaurant")
 public class RestaurantServlet extends HttpServlet {
 
+  private Datastore datastore;
+
+  @Override
+  public void init() {
+    datastore = new Datastore();
+  }
+
   /** Respond by storing the name and location of a Restaurant. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     JsonObject jsonObject = new JsonObject();
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.sendRedirect("/feed");
   }
 }

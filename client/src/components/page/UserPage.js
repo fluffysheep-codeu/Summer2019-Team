@@ -101,6 +101,7 @@ class UserPage extends Component {
     // A boolean that checks whether the current logged in user is viewing
     // another user's page. Some controls such as the message form will hide if
     // the user is not viewing their own page.
+
     const hiddenIfViewingOther = userEmail !== userEmailParam ? HIDDEN : null;
     const hiddenIfHasMessages = messages > 0 ? HIDDEN : null;
 
@@ -111,7 +112,7 @@ class UserPage extends Component {
     const aboutUi = about ? about.content : null;
 
     return (
-      <div className='container'>
+      <div className='container' style={{ margin: 5 }}>
         <h1 className='center'>{userEmailParam}</h1>
         Enter a new message:
         <br />

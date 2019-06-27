@@ -33,9 +33,9 @@ class CommunityPage extends Component {
       ? content.map(user => buildUserListItem(user))
       : null;
     return (
-      <div id='content'>
+      <div id='content' style={{ margin: 5 }}>
         <h1>Community Page</h1>
-        <p>Here is a list of every user who has posted a message:</p>
+        <p>Here is a list of every user who has logged in:</p>
         <hr />
         <ul>{userListUI}</ul>
       </div>

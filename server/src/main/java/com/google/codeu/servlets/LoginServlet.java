@@ -18,15 +18,26 @@ package com.google.codeu.servlets;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.codeu.data.Datastore;
+import com.google.codeu.data.User;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Redirects the user to the Google login page or their page if they're already logged in. */
+/**
+ * Redirects the user to the Google login page or their page if they're already
+ * logged in.
+ */
 @WebServlet("/api/login")
 public class LoginServlet extends HttpServlet {
+  private Datastore datastore;
+
+  @Override
+  public void init() {
+    datastore = new Datastore();
+  }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -36,6 +47,12 @@ public class LoginServlet extends HttpServlet {
     // If the user is already logged in, redirect to their page
     if (userService.isUserLoggedIn()) {
       String user = userService.getCurrentUser().getEmail();
+      // stores the user in datastore if it's their first time signing in
+      // TODO(brianch): Refactor User to use builder pattern
+      if (datastore.getUser(user) == null) {
+        User newUser = new User(user, "");
+        datastore.storeUser(newUser);
+      }
       response.sendRedirect("/userpage?user=" + user);
       return;
     }
