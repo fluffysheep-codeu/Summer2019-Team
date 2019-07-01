@@ -171,7 +171,7 @@ public class Datastore {
     datastore.put(restaurantEntity);
   }
 
-  /** Get the addresses of all stored Restaurants */
+  /** Get the addresses of all stored Restaurants. */
   public List<String> getRestaurants() {
     List<String> restaurants = new ArrayList<>();
     Query query = new Query("Restaurant");
