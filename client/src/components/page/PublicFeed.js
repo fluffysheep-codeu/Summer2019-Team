@@ -41,11 +41,13 @@ const buildMessages = function(content) {
 
 class PublicFeed extends Component {
   state = {
-    content: null
+    content: null,
+    address: null
   };
 
   componentDidMount() {
     this.fetchMessages();
+    this.fetchRestaurants();
   }
   fetchMessages() {
     fetch(MESSAGE_FEED_SERVLET)
@@ -54,6 +56,15 @@ class PublicFeed extends Component {
       })
       .then(content => {
         this.setState({ content: content });
+      });
+  }
+  fetchRestaurants() {
+    fetch(RESTAURANT_SERVLET)
+      .then(response => {
+        return response.json();
+      })
+      .then(content => {
+        this.setState({ address: content.addresses });
       });
   }
 
@@ -97,13 +108,19 @@ class PublicFeed extends Component {
     return (
       <div id='content' style={{ margin: 5 }}>
         <h1>Make a Post</h1>
-        <hr />
+        <hr /> Add Restaurant Address
         <form action={RESTAURANT_SERVLET} method='POST'>
           <br />
-          <textarea name='text' className='message-input' />
+          <textarea
+            name='text'
+            className='message-input'
+            style={{ height: `100%`, width: `50%` }}
+          />
           <br />
           <input type='submit' value='Submit' />
         </form>
+        Addresses:
+        {this.state.address}
         <hr />
         <CustomMap
           center={GOOGLEPLEX_COORD}
@@ -111,13 +128,12 @@ class PublicFeed extends Component {
           googleMapURL={GOOGLE_MAPS_API_URL}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `500px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
+          mapElement={<div style={{ height: `100%`, width: `50%` }} />}
         />
         <h1>Post Feed</h1>
         <div className={hideIfFullyLoaded}>Loading...</div>
         <hr />
         <ul>{messageList}</ul>
-
         <select id='language'>
           <option value='es'>English</option>
           <option value='zh'>Chinese</option>

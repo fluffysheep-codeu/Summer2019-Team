@@ -161,4 +161,25 @@ public class Datastore {
     }
     return users;
   }
+
+  /** Store the address of a Restaurant. */
+  public void storeRestaurant(Restaurant restaurant) {
+    Entity restaurantEntity = new Entity("Restaurant", restaurant.getId().toString());
+    restaurantEntity.setProperty("address", restaurant.getAddress());
+    restaurantEntity.setProperty("lat", restaurant.getLat());
+    restaurantEntity.setProperty("lng", restaurant.getLng());
+    datastore.put(restaurantEntity);
+  }
+
+  /** Get the addresses of all stored Restaurants */
+  public List<String> getRestaurants() {
+    List<String> restaurants = new ArrayList<>();
+    Query query = new Query("Restaurant");
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+      String address = (String) entity.getProperty("address");
+      restaurants.add(address);
+    }
+    return restaurants;
+  }
 }
