@@ -18,6 +18,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { BLOBSTORE_SERVLET } from 'constants/links.js';
 import 'css/userPage.css';
 import { HIDDEN } from 'constants/css.js';
 import { MESSAGE } from 'constants/links.js';
@@ -25,7 +26,6 @@ import Message from 'components/ui/Message.js';
 import { ABOUT_ME_SERVLET } from '../../constants/links';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
 /** Gets the parameters from the url. Parameters are after the ? in the url. */
 const urlParams = new URLSearchParams(window.location.search);
 /** The email of the currently displayed user. */
@@ -114,6 +114,7 @@ class UserPage extends Component {
     return (
       <div className='container' style={{ margin: 5 }}>
         <h1 className='center'>{userEmailParam}</h1>
+        <hr /> <br />
         Enter a new message:
         <br />
         <CKEditor
@@ -136,8 +137,20 @@ class UserPage extends Component {
         <button onClick={submitAboutMe}>Submit</button>
         <br className={hiddenIfViewingOther} />
         <hr />
-        <p className={hiddenIfHasMessages}>This user has no posts yet.</p>
+        <p className={HIDDEN}>This user has no posts yet.</p>
         {messagesUi}
+        <form
+          id='message-form'
+          method='getUploadedFileUrl'
+          enctype='multipart/form-data'>
+          Enter a new message:
+          <br />
+          <textarea name='text' id='message-input' />
+          <br />
+          <input type='file' name='image' multiple />
+          <br />
+          <input type='submit' value='Submit' action={submitMessage} />
+        </form>
       </div>
     );
   }

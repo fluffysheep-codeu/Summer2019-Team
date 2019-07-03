@@ -39,3 +39,9 @@
 .message-body {
   margin: 5px;
 }
+
+.message-body img {
+  display: block;
+  margin-top: 25px;
+  max-width: 75%;
+}

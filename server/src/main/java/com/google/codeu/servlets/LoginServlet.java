@@ -26,10 +26,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Redirects the user to the Google login page or their page if they're already
- * logged in.
- */
+/** Redirects the user to the Google login page or their page if they're already logged in. */
 @WebServlet("/api/login")
 public class LoginServlet extends HttpServlet {
   private Datastore datastore;
