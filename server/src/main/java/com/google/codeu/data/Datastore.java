@@ -165,9 +165,8 @@ public class Datastore {
   /** Store the address of a Restaurant. */
   public void storeRestaurant(Restaurant restaurant) {
     Entity restaurantEntity = new Entity("Restaurant", restaurant.getId().toString());
+    restaurantEntity.setProperty("name", restaurant.getName());
     restaurantEntity.setProperty("address", restaurant.getAddress());
-    restaurantEntity.setProperty("lat", restaurant.getLat());
-    restaurantEntity.setProperty("lng", restaurant.getLng());
     datastore.put(restaurantEntity);
   }
 
@@ -178,7 +177,8 @@ public class Datastore {
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
       String address = (String) entity.getProperty("address");
-      restaurants.add(address);
+      String name = (String) entity.getProperty("name");
+      restaurants.add(name + ": " + address);
     }
     return restaurants;
   }

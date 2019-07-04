@@ -22,6 +22,16 @@ public class RestaurantServlet extends HttpServlet {
     datastore = new Datastore();
   }
 
+  /** Function will return whether or not strNum is an Integer */
+  public boolean isInt(String strNum) {
+    try {
+      int d = Integer.parseInt(strNum);
+    } catch (NumberFormatException | NullPointerException nfe) {
+      return false;
+    }
+    return true;
+  }
+
   /** Respond by returning a new list of Restaurants in JSON. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -37,7 +47,25 @@ public class RestaurantServlet extends HttpServlet {
   /** Respond by storing the name and location of a Restaurant. */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Restaurant restaurant = new Restaurant(request.getParameter("text"));
+    // Parse the request into the Restaurant name and address
+    String data = request.getParameter("text");
+    String[] nameAddress = data.split(" ");
+    int addressStart = 0;
+    for (String currStr : nameAddress) {
+      if (isInt(currStr)) {
+        break;
+      }
+      addressStart++;
+    }
+    String name = nameAddress[0];
+    String address = nameAddress[addressStart];
+    for (int i = 1; i < addressStart; i++) {
+      name += " " + nameAddress[i];
+    }
+    for (int i = addressStart+1; i < nameAddress.length; i++) {
+      address += " " + nameAddress[i];
+    }
+    Restaurant restaurant = new Restaurant(name, address);
     datastore.storeRestaurant(restaurant);
     response.sendRedirect("/feed");
   }

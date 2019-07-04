@@ -15,6 +15,7 @@
  */
 
 import React, { Component } from 'react';
+import Geocode from 'react-geocode';
 import {
   MESSAGE_FEED_SERVLET,
   TRANSLATION_SERVLET,
@@ -108,7 +109,10 @@ class PublicFeed extends Component {
     return (
       <div id='content' style={{ margin: 5 }}>
         <h1>Make a Post</h1>
-        <hr /> Add Restaurant Address
+        <hr />
+        Add Restaurant Name and Address
+        <br />
+        (Ex. Googleplex 1600 Amphitheatre Pkwy, Mountain View, CA 94043)
         <form action={RESTAURANT_SERVLET} method='POST'>
           <br />
           <textarea
