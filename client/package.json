@@ -9,7 +9,6 @@
     "@material-ui/icons": "^3.0.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-geocode": "^0.1.2",
     "react-google-maps": "^9.4.5",
     "react-redux": "^7.0.3",
     "react-request": "^3.1.2",

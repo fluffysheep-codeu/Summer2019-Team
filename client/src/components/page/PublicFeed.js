@@ -15,7 +15,6 @@
  */
 
 import React, { Component } from 'react';
-import Geocode from 'react-geocode';
 import {
   MESSAGE_FEED_SERVLET,
   TRANSLATION_SERVLET,
@@ -24,11 +23,12 @@ import {
 import Message from 'components/ui/Message.js';
 import { HIDDEN } from 'constants/css.js';
 import CustomMap from 'components/ui/CustomMap.js';
+import { element } from 'prop-types';
 
 const GOOGLE_MAPS_API_URL =
   'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
-const DEFAULT_MAP_ZOOM = 15;
-const GOOGLEPLEX_COORD = { lat: 37.422, lng: -122.084 };
+const DEFAULT_MAP_ZOOM = 2;
+const CENTER_EARTH = { lat: 20, lng: 0 };
 
 const buildMessages = function(content) {
   return (
@@ -50,6 +50,7 @@ class PublicFeed extends Component {
     this.fetchMessages();
     this.fetchRestaurants();
   }
+
   fetchMessages() {
     fetch(MESSAGE_FEED_SERVLET)
       .then(response => {
@@ -59,13 +60,14 @@ class PublicFeed extends Component {
         this.setState({ content: content });
       });
   }
+
   fetchRestaurants() {
     fetch(RESTAURANT_SERVLET)
       .then(response => {
         return response.json();
       })
       .then(content => {
-        this.setState({ address: content.addresses });
+        this.setState({ restaurants: JSON.stringify(content) });
       });
   }
 
@@ -106,11 +108,33 @@ class PublicFeed extends Component {
       ? value.map(content => buildMessages(content))
       : null;
     const hideIfFullyLoaded = !messageList ? null : HIDDEN;
+    const restaurantList = !this.state.restaurants
+      ? null
+      : JSON.parse(this.state.restaurants);
+    var markers = {};
+    const test = this.state.restaurants;
+    var key = 1;
+    if (restaurantList) {
+      for (const [restName, addBio] of Object.entries(restaurantList)) {
+        markers[key] = {};
+        markers[key].name = restName;
+        markers[key].description = addBio[Object.keys(addBio)[0]];
+        // Here we perform the Geocoding to get the latitude and longitude
+
+        if (key === 1) {
+          markers.keys = [key];
+        } else {
+          markers.keys.push(key);
+        }
+        key++;
+      }
+    }
+
     return (
       <div id='content' style={{ margin: 5 }}>
         <h1>Make a Post</h1>
         <hr />
-        Add Restaurant Name and Address
+        Add Your Favorite Restaurant's Name and Address!
         <br />
         (Ex. Googleplex 1600 Amphitheatre Pkwy, Mountain View, CA 94043)
         <form action={RESTAURANT_SERVLET} method='POST'>
@@ -121,13 +145,20 @@ class PublicFeed extends Component {
             style={{ height: `100%`, width: `50%` }}
           />
           <br />
+          Add Why You Like the Restaurant.
+          <br />
+          <textarea
+            name='bio'
+            className='message-input'
+            style={{ height: `100%`, width: `50%` }}
+          />
+          <br />
           <input type='submit' value='Submit' />
         </form>
-        Addresses:
-        {this.state.address}
         <hr />
+        See Others Favorite Restaurants!
         <CustomMap
-          center={GOOGLEPLEX_COORD}
+          center={CENTER_EARTH}
           zoom={DEFAULT_MAP_ZOOM}
           googleMapURL={GOOGLE_MAPS_API_URL}
           loadingElement={<div style={{ height: `100%` }} />}
