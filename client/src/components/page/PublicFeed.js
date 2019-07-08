@@ -27,8 +27,9 @@ import { element } from 'prop-types';
 
 const GOOGLE_MAPS_API_URL =
   'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
-const DEFAULT_MAP_ZOOM = 2;
+const DEFAULT_MAP_ZOOM = 1;
 const CENTER_EARTH = { lat: 20, lng: 0 };
+const GOOGLE_MAPS_API = 'AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww';
 
 const buildMessages = function(content) {
   return (
@@ -45,6 +46,8 @@ class PublicFeed extends Component {
     content: null,
     address: null
   };
+
+  markers = {};
 
   componentDidMount() {
     this.fetchMessages();
@@ -68,9 +71,44 @@ class PublicFeed extends Component {
       })
       .then(content => {
         this.setState({ restaurants: JSON.stringify(content) });
+        const restaurantList = !this.state.restaurants
+          ? null
+          : JSON.parse(this.state.restaurants);
+        var key = 1;
+        if (restaurantList) {
+          for (const [restName, addBio] of Object.entries(restaurantList)) {
+            this.markers[key] = {};
+            this.markers[key].name = restName;
+            this.markers[key].description = addBio[Object.keys(addBio)[0]];
+            // Here we perform the Geocoding to get the latitude and longitude
+            const address = Object.keys(addBio)[0]
+              .split(' ')
+              .join('+');
+            const httpAddress =
+              'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+              address +
+              '&key=' +
+              GOOGLE_MAPS_API;
+            this.fetchCoordinates(httpAddress, key);
+            if (key === 1) {
+              this.markers.keys = [key];
+            } else {
+              this.markers.keys.push(key);
+            }
+            key++;
+          }
+        }
       });
   }
 
+  /** Will fetch the coordinates of an address */
+  fetchCoordinates(address, key) {
+    fetch(address)
+      .then(response => response.json())
+      .then(responseJson => {
+        this.markers[key].coord = responseJson.results[0].geometry.location;
+      });
+  }
   /** Translates the text of an individual message and updates state */
   buildTranslatedMessages(content, index, languageCode) {
     const url =
@@ -108,35 +146,13 @@ class PublicFeed extends Component {
       ? value.map(content => buildMessages(content))
       : null;
     const hideIfFullyLoaded = !messageList ? null : HIDDEN;
-    const restaurantList = !this.state.restaurants
-      ? null
-      : JSON.parse(this.state.restaurants);
-    var markers = {};
-    const test = this.state.restaurants;
-    var key = 1;
-    if (restaurantList) {
-      for (const [restName, addBio] of Object.entries(restaurantList)) {
-        markers[key] = {};
-        markers[key].name = restName;
-        markers[key].description = addBio[Object.keys(addBio)[0]];
-        // Here we perform the Geocoding to get the latitude and longitude
-
-        if (key === 1) {
-          markers.keys = [key];
-        } else {
-          markers.keys.push(key);
-        }
-        key++;
-      }
-    }
-
     return (
       <div id='content' style={{ margin: 5 }}>
         <h1>Make a Post</h1>
         <hr />
         Add Your Favorite Restaurant's Name and Address!
         <br />
-        (Ex. Googleplex 1600 Amphitheatre Pkwy, Mountain View, CA 94043)
+        (Ex. Googleplex 1600 Amphitheatre Pkwy, Mountain View, CA)
         <form action={RESTAURANT_SERVLET} method='POST'>
           <br />
           <textarea
@@ -161,6 +177,7 @@ class PublicFeed extends Component {
           center={CENTER_EARTH}
           zoom={DEFAULT_MAP_ZOOM}
           googleMapURL={GOOGLE_MAPS_API_URL}
+          markers={this.markers}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `500px` }} />}
           mapElement={<div style={{ height: `100%`, width: `50%` }} />}

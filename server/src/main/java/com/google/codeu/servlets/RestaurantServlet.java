@@ -51,6 +51,10 @@ public class RestaurantServlet extends HttpServlet {
     // Parse the request into the Restaurant name and address
     String data = Jsoup.clean(request.getParameter("text"), Whitelist.none());
     String bio = Jsoup.clean(request.getParameter("bio"), Whitelist.none());
+    if (data.length() == 0 || bio.length() == 0) {
+      response.sendRedirect("/feed");
+      return;
+    }
     String[] nameAddress = data.split(" ");
     int addressStart = 0;
     for (String currStr : nameAddress) {
