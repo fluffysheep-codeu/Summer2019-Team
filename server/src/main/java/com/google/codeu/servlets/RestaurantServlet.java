@@ -23,7 +23,7 @@ public class RestaurantServlet extends HttpServlet {
     datastore = new Datastore();
   }
 
-  /** Function will return whether or not strNum is an Integer */
+  /** Function will return whether or not strNum is an Integer. */
   public boolean isInt(String strNum) {
     try {
       int d = Integer.parseInt(strNum);
