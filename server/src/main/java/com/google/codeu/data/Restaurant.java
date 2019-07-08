@@ -32,7 +32,7 @@ public class Restaurant {
    * @param restAddress Address of the Restaurant given.
    */
   public Restaurant(String restName, String restAddress, String restBio) {
-    /** Convert Address into Latitude and Longitude.  */
+    /** Convert Address into Latitude and Longitude. */
     id = UUID.randomUUID();
     name = restName;
     address = restAddress;

@@ -3,10 +3,8 @@ package com.google.codeu.servlets;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Restaurant;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.util.Map;
-import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +37,7 @@ public class RestaurantServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
-    Map <String, Map <String, String>> restaurants = datastore.getRestaurants();
+    Map<String, Map<String, String>> restaurants = datastore.getRestaurants();
     Gson gson = new Gson();
     String json = gson.toJson(restaurants);
     response.getOutputStream().println(json);
@@ -68,7 +66,7 @@ public class RestaurantServlet extends HttpServlet {
     for (int i = 1; i < addressStart; i++) {
       name += " " + nameAddress[i];
     }
-    for (int i = addressStart+1; i < nameAddress.length; i++) {
+    for (int i = addressStart + 1; i < nameAddress.length; i++) {
       address += " " + nameAddress[i];
     }
     Restaurant restaurant = new Restaurant(name, address, bio);

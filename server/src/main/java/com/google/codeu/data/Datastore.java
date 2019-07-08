@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID; 
+import java.util.UUID;
 
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
@@ -174,15 +174,15 @@ public class Datastore {
   }
 
   /** Get the addresses of all stored Restaurants. */
-  public Map <String, Map <String, String>> getRestaurants() {
-    Map <String, Map <String, String>> restaurants = new HashMap<>();
+  public Map<String, Map<String, String>> getRestaurants() {
+    Map<String, Map<String, String>> restaurants = new HashMap<>();
     Query query = new Query("Restaurant");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
       String address = (String) entity.getProperty("address");
       String name = (String) entity.getProperty("name");
       String bio = (String) entity.getProperty("bio");
-      Map <String, String> addBio = new HashMap<>();
+      Map<String, String> addBio = new HashMap<>();
       addBio.put(address, bio);
       restaurants.put(name, addBio);
     }
