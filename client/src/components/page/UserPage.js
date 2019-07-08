@@ -22,7 +22,11 @@ import 'css/userPage.css';
 import { HIDDEN } from 'constants/css.js';
 import { MESSAGE } from 'constants/links.js';
 import Message from 'components/ui/Message.js';
-import { ABOUT_ME_SERVLET } from '../../constants/links';
+import {
+  ABOUT_ME_SERVLET,
+  PROFILE_UPLOAD_SERVLET,
+  PROFILE_PIC_SERVLET
+} from '../../constants/links';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Button from '@material-ui/core/Button';
@@ -39,21 +43,26 @@ const userEmailParam = urlParams.get('user');
 const url1 = MESSAGE + '?user=' + userEmailParam;
 /** About url */
 const url2 = ABOUT_ME_SERVLET + '?user=' + userEmailParam;
+/**profile pic url */
+const url3 = PROFILE_PIC_SERVLET + '?user=' + userEmailParam;
 /** Promises */
-const promises = Promise.all([fetch(url1), fetch(url2)]);
+const promises = Promise.all([fetch(url1), fetch(url2), fetch(url3)]);
 /* User-Entered Message */
 var editorMessage = null;
 /* User-Entered About */
 var editorAbout = 'This is your about me.';
+/**User-entered photo url */
+var editorPhotoUrl = null;
 
 const styles = function() {
   return {
     a: {
-      marginLeft: 50,
+      marginLeft: 30,
       marginTop: 10,
       width: 100,
       height: 100,
-      justify: 'center'
+      justify: 'center',
+      marginBottom: 20
     },
     submit: {
       marginTop: 10
@@ -66,6 +75,10 @@ const styles = function() {
       fontSize: 35,
       marginTop: 30,
       fontFamily: 'PT Sans'
+    },
+    aboutMe: {
+      marginLeft: 10,
+      marginTop: -40
     }
   };
 };
@@ -110,20 +123,33 @@ const submitAboutMe = function() {
 class UserPage extends Component {
   state = {
     messages: null,
-    about: null
+    about: null,
+    profPic: '',
+    photoURL: null
   };
 
   componentDidMount() {
     promises
       .then(results => Promise.all(results.map(r => r.clone().json())))
       .then(results => {
-        const [messages, about] = results;
-        this.setState({ messages, about });
+        const [messages, about, profPic] = results;
+        this.setState({ messages, about, profPic });
+      });
+    this.fetchUrl();
+  }
+
+  fetchUrl() {
+    fetch(PROFILE_UPLOAD_SERVLET)
+      .then(response => {
+        return response.text();
+      })
+      .then(imageUploadUrl => {
+        this.setState({ photoURL: imageUploadUrl });
       });
   }
 
   render() {
-    const { messages, about } = this.state;
+    const { messages, about, profPic, photoURL } = this.state;
 
     const { userEmail } = this.props.userData;
     const { classes } = this.props;
@@ -148,7 +174,7 @@ class UserPage extends Component {
             <Avatar
               className={classes.a}
               alt='My profile'
-              src='https://cc-media-foxit.fichub.com/image/fox-it-mondofox/e8c0f288-781d-4d0b-98ad-fd169782b53b/scene-sottacqua-per-i-sequel-di-avatar-maxw-654.jpg'
+              src={profPic.content}
             />
           </Grid>
           <Grid item xs={3}>
@@ -158,6 +184,9 @@ class UserPage extends Component {
             item
             xs={6}
             style={{ height: 30, marginTop: 10, marginLeft: 60 }}>
+            <Typography className={classes.words} variant='h5'>
+              Enter your bio:
+            </Typography>
             <div className={hiddenIfViewingOther}>
               <CKEditor
                 editor={ClassicEditor}
@@ -176,10 +205,21 @@ class UserPage extends Component {
             </div>
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid item xs={2} />
-          <Grid item xs={3}>
-            {aboutUi}
+        <br />
+        <Grid container spacing={10}>
+          <Grid item xs={2}>
+            <form
+              className={hiddenIfViewingOther}
+              encType='multipart/form-data'
+              method='POST'
+              action={photoURL}>
+              Upload Profile Picture
+              <input type='file' name='image' id='image' />
+              <input type='submit' value='Submit' />
+            </form>
+          </Grid>
+          <Grid item xs={3} className={classes.aboutMe}>
+            <Typography className={classes.words}>{aboutUi}</Typography>
           </Grid>
         </Grid>
         <br />

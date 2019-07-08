@@ -23,7 +23,6 @@ import {
 import Message from 'components/ui/Message.js';
 import { HIDDEN } from 'constants/css.js';
 import CustomMap from 'components/ui/CustomMap.js';
-import { element } from 'prop-types';
 
 const GOOGLE_MAPS_API_URL =
   'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
