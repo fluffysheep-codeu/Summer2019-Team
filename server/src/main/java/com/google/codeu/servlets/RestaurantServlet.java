@@ -23,16 +23,6 @@ public class RestaurantServlet extends HttpServlet {
     datastore = new Datastore();
   }
 
-  /** Function will return whether or not strNum is an Integer. */
-  public boolean isInt(String strNum) {
-    try {
-      int d = Integer.parseInt(strNum);
-    } catch (NumberFormatException | NullPointerException nfe) {
-      return false;
-    }
-    return true;
-  }
-
   /** Respond by returning a new list of Restaurants in JSON. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -47,27 +37,12 @@ public class RestaurantServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Parse the request into the Restaurant name and address
-    String data = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+    String name = Jsoup.clean(request.getParameter("name"), Whitelist.none());
+    String address = Jsoup.clean(request.getParameter("address"), Whitelist.none());
     String bio = Jsoup.clean(request.getParameter("bio"), Whitelist.none());
-    if (data.length() == 0 || bio.length() == 0) {
+    if (name.length() == 0 || address.length() == 0 || bio.length() == 0) {
       response.sendRedirect("/feed");
       return;
-    }
-    String[] nameAddress = data.split(" ");
-    int addressStart = 0;
-    for (String currStr : nameAddress) {
-      if (isInt(currStr)) {
-        break;
-      }
-      addressStart++;
-    }
-    String name = nameAddress[0];
-    String address = nameAddress[addressStart];
-    for (int i = 1; i < addressStart; i++) {
-      name += " " + nameAddress[i];
-    }
-    for (int i = addressStart + 1; i < nameAddress.length; i++) {
-      address += " " + nameAddress[i];
     }
     Restaurant restaurant = new Restaurant(name, address, bio);
     datastore.storeRestaurant(restaurant);

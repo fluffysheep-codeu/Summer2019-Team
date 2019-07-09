@@ -70,6 +70,7 @@ class PublicFeed extends Component {
       })
       .then(content => {
         this.setState({ restaurants: JSON.stringify(content) });
+        console.log(this.state.restaurants);
         const restaurantList = !this.state.restaurants
           ? null
           : JSON.parse(this.state.restaurants);
@@ -149,13 +150,21 @@ class PublicFeed extends Component {
       <div id='content' style={{ margin: 5 }}>
         <h1>Make a Post</h1>
         <hr />
-        Add Your Favorite Restaurant's Name and Address!
+        Add Your Favorite Restaurant's Name!
         <br />
-        (Ex. Googleplex 1600 Amphitheatre Pkwy, Mountain View, CA)
         <form action={RESTAURANT_SERVLET} method='POST'>
           <br />
           <textarea
-            name='text'
+            name='name'
+            className='message-input'
+            style={{ height: `100%`, width: `50%` }}
+          />
+          <br />
+          Add the Restaurant's address <br />
+          (Ex. 1600 Amphitheatre Pkwy, Mountain View, CA)
+          <br />
+          <textarea
+            name='address'
             className='message-input'
             style={{ height: `100%`, width: `50%` }}
           />
