@@ -58,7 +58,7 @@ class PublicFeed extends Component {
       .then(results => Promise.all(results.map(r => r.clone().json())))
       .then(results => {
         const [messageFeed, restaurant] = results;
-        this.setState({ messageFeed, restaurant });
+        this.setState({ content: messageFeed, restaurants: restaurant });
       });
   }
 
