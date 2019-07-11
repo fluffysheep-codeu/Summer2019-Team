@@ -172,21 +172,26 @@ public class Datastore {
     restaurantEntity.setProperty("name", restaurant.getName());
     restaurantEntity.setProperty("address", restaurant.getAddress());
     restaurantEntity.setProperty("bio", restaurant.getBio());
+    restaurantEntity.setProperty("lat", restaurant.getLat());
+    restaurantEntity.setProperty("lng", restaurant.getLng());
     datastore.put(restaurantEntity);
   }
 
-  /** Get the addresses of all stored Restaurants. */
-  public Map<String, Map<String, String>> getRestaurants() {
-    Map<String, Map<String, String>> restaurants = new HashMap<>();
+  /** Get the locations of all stored Restaurants. */
+  public Map<String, Map<String, Map<Double, Double>>> getRestaurants() {
+    Map<String, Map<String, Map<Double, Double>>> restaurants = new HashMap<>();
     Query query = new Query("Restaurant");
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
-      String address = (String) entity.getProperty("address");
       String name = (String) entity.getProperty("name");
       String bio = (String) entity.getProperty("bio");
-      Map<String, String> addBio = new HashMap<>();
-      addBio.put(address, bio);
-      restaurants.put(name, addBio);
+      Double lat = (Double) entity.getProperty("lat");
+      Double lng = (Double) entity.getProperty("lng");
+      Map<Double, Double> coord = new HashMap<>();
+      coord.put(lat, lng);
+      Map<String, Map<Double, Double>> bioCoord = new HashMap<>();
+      bioCoord.put(bio, coord);
+      restaurants.put(name, bioCoord);
     }
     return restaurants;
   }

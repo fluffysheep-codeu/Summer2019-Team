@@ -28,7 +28,6 @@ const GOOGLE_MAPS_API_URL =
   'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
 const DEFAULT_MAP_ZOOM = 1;
 const CENTER_EARTH = { lat: 20, lng: 0 };
-const GOOGLE_MAPS_API = 'AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww';
 /** Promises */
 const promises = Promise.all([
   fetch(MESSAGE_FEED_SERVLET),
@@ -113,20 +112,16 @@ class PublicFeed extends Component {
       : this.state.restaurants;
     var key = 1;
     if (restaurantList) {
-      for (const [restName, addBio] of Object.entries(restaurantList)) {
+      for (const [restName, bioCoord] of Object.entries(restaurantList)) {
         this.markers[key] = {};
         this.markers[key].name = restName;
-        this.markers[key].description = addBio[Object.keys(addBio)[0]];
-        // Here we perform the Geocoding to get the latitude and longitude
-        const address = Object.keys(addBio)[0]
-          .split(' ')
-          .join('+');
-        const httpAddress =
-          'https://maps.googleapis.com/maps/api/geocode/json?address=' +
-          address +
-          '&key=' +
-          GOOGLE_MAPS_API;
-        this.fetchCoordinates(httpAddress, key);
+        const latLng = Object.values(bioCoord)[0];
+        this.markers[key].coord = {
+          lat: Number(Object.keys(latLng)[0]),
+          lng: Number(Object.values(latLng)[0])
+        };
+        console.log(Object.keys(latLng)[0]);
+        this.markers[key].description = Object.keys(bioCoord)[0];
         if (key === 1) {
           this.markers.keys = [key];
         } else {
