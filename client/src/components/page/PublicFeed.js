@@ -110,25 +110,21 @@ class PublicFeed extends Component {
     const restaurantList = !this.state.restaurants
       ? null
       : this.state.restaurants;
-    var key = 1;
+    var restaurantNames = [];
     if (restaurantList) {
       for (const [restName, bioCoord] of Object.entries(restaurantList)) {
-        this.markers[key] = {};
-        this.markers[key].name = restName;
         const latLng = Object.values(bioCoord)[0];
-        this.markers[key].coord = {
-          lat: Number(Object.keys(latLng)[0]),
-          lng: Number(Object.values(latLng)[0])
+        this.markers[restName] = {
+          name: restName,
+          coord: {
+            lat: Number(Object.keys(latLng)[0]),
+            lng: Number(Object.values(latLng)[0])
+          },
+          description: Object.keys(bioCoord)[0]
         };
-        console.log(Object.keys(latLng)[0]);
-        this.markers[key].description = Object.keys(bioCoord)[0];
-        if (key === 1) {
-          this.markers.keys = [key];
-        } else {
-          this.markers.keys.push(key);
-        }
-        key++;
+        restaurantNames.push(restName);
       }
+      this.markers.keys = restaurantNames;
     }
     return (
       <div id='content' style={{ margin: 5 }}>

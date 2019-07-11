@@ -21,7 +21,7 @@ import org.jsoup.safety.Whitelist;
 public class RestaurantServlet extends HttpServlet {
 
   private Datastore datastore;
-  private String API_KEY = "AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww";
+  private String apiKey = "AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww";
 
   @Override
   public void init() {
@@ -70,10 +70,11 @@ public class RestaurantServlet extends HttpServlet {
     response.sendRedirect("/feed");
   }
 
+  /** Will return a 2 element array of the latitude and longitude of an address */
   public Double[] lookupCoord(String establishment)
       throws ApiException, InterruptedException, IOException {
     // set up key
-    GeoApiContext lookupDoodad = new GeoApiContext.Builder().apiKey(API_KEY).build();
+    GeoApiContext lookupDoodad = new GeoApiContext.Builder().apiKey(apiKey).build();
     GeocodingResult[] results = GeocodingApi.geocode(lookupDoodad, establishment).await();
 
     // converts results into usable Coordinates
