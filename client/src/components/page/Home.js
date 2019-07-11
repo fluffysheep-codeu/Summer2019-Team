@@ -23,7 +23,10 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
-import InputBase from '@material-ui/core/InputBase';
+import { SEARCH_SERVLET } from 'constants/links.js';
+
+/* User-Entered Search */
+var searchVal = null;
 
 const styles = function() {
   return {
@@ -69,8 +72,36 @@ const styles = function() {
   };
 };
 
-/** Renders the /home page. */
+/** Gets the parameters from the url. Parameters are after the ? in the url. */
+const urlParams = new URLSearchParams(window.location.search);
+/** The email of the currently displayed user. */
+const userEmailParam = urlParams.get('user');
+/** Message url */
+const url = SEARCH_SERVLET + '?user=' + userEmailParam;
+/** Promises */
+const promises = Promise.all([fetch(url)]);
+
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      content: null
+    };
+  }
+
+  componentDidMount() {
+    promises
+      .then(results => Promise.all(results.map(r => r.clone().json())))
+      .then(results => {
+        const [content] = results;
+        this.setState({ content });
+      });
+  }
+
+  handleOnChange = event => {
+    searchVal = event.target.value;
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -80,16 +111,9 @@ class Home extends Component {
           <Typography className={classes.avatar} component='h1' variant='h5'>
             Tip of My Tongue
           </Typography>
-          <form className={classes.form} noValidate>
-            <InputBase
-              placeholder='Search…'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ 'aria-label': 'Search' }}
-              id='outlined-named'
-            />
+          <form action={SEARCH_SERVLET} method='GET'>
+            <textarea name='search' className={classes.form} noValidate />
+            <input type='submit' value='Search' />
           </form>
         </div>
       </Grid>

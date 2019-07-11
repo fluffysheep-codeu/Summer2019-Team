@@ -36,3 +36,9 @@ nav li {
 .hidden {
   display: none;
 }
+
+img {
+  display: block;
+  margin-top: 25px;
+  max-width: 75%;
+}

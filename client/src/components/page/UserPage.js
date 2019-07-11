@@ -17,7 +17,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import ReactHashtag from 'react-hashtag';
 import 'css/userPage.css';
 import { HIDDEN } from 'constants/css.js';
 import { MESSAGE } from 'constants/links.js';

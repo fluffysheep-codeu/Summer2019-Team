@@ -172,6 +172,7 @@ public class Datastore {
     restaurantEntity.setProperty("name", restaurant.getName());
     restaurantEntity.setProperty("address", restaurant.getAddress());
     restaurantEntity.setProperty("bio", restaurant.getBio());
+<<<<<<< HEAD
     restaurantEntity.setProperty("lat", restaurant.getLat());
     restaurantEntity.setProperty("lng", restaurant.getLng());
     datastore.put(restaurantEntity);
@@ -192,6 +193,23 @@ public class Datastore {
       Map<String, Map<Double, Double>> bioCoord = new HashMap<>();
       bioCoord.put(bio, coord);
       restaurants.put(name, bioCoord);
+=======
+    datastore.put(restaurantEntity);
+  }
+
+  /** Get the addresses of all stored Restaurants. */
+  public Map<String, Map<String, String>> getRestaurants() {
+    Map<String, Map<String, String>> restaurants = new HashMap<>();
+    Query query = new Query("Restaurant");
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+      String address = (String) entity.getProperty("address");
+      String name = (String) entity.getProperty("name");
+      String bio = (String) entity.getProperty("bio");
+      Map<String, String> addBio = new HashMap<>();
+      addBio.put(address, bio);
+      restaurants.put(name, addBio);
+>>>>>>> 5d5067153ffd9521584acc325a85b758ccbfc8eb
     }
     return restaurants;
   }

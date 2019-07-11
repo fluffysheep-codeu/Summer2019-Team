@@ -44,6 +44,8 @@ export const ABOUT_ME_SERVLET = servletPrefix + '/about';
 export const MARKERS_SERVLET = servletPrefix + '/markers';
 /** Link to the restaurant servlet. */
 export const RESTAURANT_SERVLET = servletPrefix + '/restaurant';
+/** Link to the search servlet. */
+export const SEARCH_SERVLET = servletPrefix + '/search';
 /**Link to the upload profile pic servlet */
 export const PROFILE_UPLOAD_SERVLET = servletPrefix + '/profile-upload-url';
 /**Link to the profile picture servlet */
