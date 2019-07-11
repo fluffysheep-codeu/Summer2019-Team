@@ -130,9 +130,8 @@ class PublicFeed extends Component {
       <div id='content' style={{ margin: 5 }}>
         <h1>Make a Post</h1>
         <hr />
-        Add Your Favorite Restaurant's Name!
-        <br />
         <form action={RESTAURANT_SERVLET} method='POST'>
+          Add Your Favorite Restaurant's Name!
           <br />
           <textarea
             name='name'
