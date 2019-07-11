@@ -53,13 +53,7 @@ public class RestaurantServlet extends HttpServlet {
     Double[] coord = new Double[2];
     try {
       coord = this.lookupCoord(address);
-    } catch (ApiException a) {
-      response.sendRedirect("/feed");
-      return;
-    } catch (InterruptedException a) {
-      response.sendRedirect("/feed");
-      return;
-    } catch (IOException a) {
+    } catch (ApiException | InterruptedException | IOException a) {
       response.sendRedirect("/feed");
       return;
     }
