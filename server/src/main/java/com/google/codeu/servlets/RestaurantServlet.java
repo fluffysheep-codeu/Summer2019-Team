@@ -70,7 +70,7 @@ public class RestaurantServlet extends HttpServlet {
     response.sendRedirect("/feed");
   }
 
-  /** Will return a 2 element array of the latitude and longitude of an address */
+  /** Will return a 2 element array of the latitude and longitude of an address. */
   public Double[] lookupCoord(String establishment)
       throws ApiException, InterruptedException, IOException {
     // set up key
