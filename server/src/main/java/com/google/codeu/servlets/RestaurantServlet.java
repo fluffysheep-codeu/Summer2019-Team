@@ -65,11 +65,11 @@ public class RestaurantServlet extends HttpServlet {
   }
 
   /** Will return a 2 element array of the latitude and longitude of an address. */
-  public Double[] lookupCoord(String establishment)
+  public Double[] lookupCoord(String address)
       throws ApiException, InterruptedException, IOException {
     // set up key
-    GeoApiContext lookupDoodad = new GeoApiContext.Builder().apiKey(apiKey).build();
-    GeocodingResult[] results = GeocodingApi.geocode(lookupDoodad, establishment).await();
+    GeoApiContext geocoder = new GeoApiContext.Builder().apiKey(apiKey).build();
+    GeocodingResult[] results = GeocodingApi.geocode(geocoder, address).await();
 
     // converts results into usable Coordinates
     Double[] coord = new Double[2];
