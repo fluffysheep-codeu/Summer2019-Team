@@ -70,7 +70,6 @@ limitations under the License.
     </dependency>
 
     <dependency>
-<<<<<<< HEAD
       <groupId>com.google.maps</groupId>
       <artifactId>google-maps-services</artifactId>
       <version>0.9.3</version>
@@ -81,12 +80,6 @@ limitations under the License.
       <artifactId>slf4j-simple</artifactId>
       <version>1.7.25</version>
     </dependency>
-=======
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>5.1.39</version>
-</dependency>
->>>>>>> 5d5067153ffd9521584acc325a85b758ccbfc8eb
 
 
   </dependencies>
