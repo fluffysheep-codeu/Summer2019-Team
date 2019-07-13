@@ -184,7 +184,7 @@ class UserPage extends Component {
             item
             xs={6}
             style={{ height: 30, marginTop: 10, marginLeft: 60 }}>
-            <Typography className={classes.words} variant='h5'>
+            <Typography className={classes.words} variant='h6'>
               Enter your bio:
             </Typography>
             <div className={hiddenIfViewingOther}>
@@ -213,7 +213,7 @@ class UserPage extends Component {
               encType='multipart/form-data'
               method='POST'
               action={photoURL}>
-              Upload Profile Picture
+              <Typography variant='body1'>Upload a profile picture</Typography>
               <input type='file' name='image' id='image' />
               <input type='submit' value='Submit' />
             </form>
@@ -244,7 +244,6 @@ class UserPage extends Component {
         </div>
         <br />
         <hr />
-        <p className={hiddenIfHasMessages}>This user has no posts yet.</p>
         {messagesUi}
       </div>
     );
