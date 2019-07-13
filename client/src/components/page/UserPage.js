@@ -165,7 +165,8 @@ class UserPage extends Component {
       ? messages.map(message => createMessageUi(message))
       : null;
 
-    const aboutUi = about ? about.content : null;
+    //format for setting inner html
+    const aboutUi = about ? { __html: about.content } : null;
 
     return (
       <div className='container' style={{ margin: 10 }}>
@@ -219,7 +220,9 @@ class UserPage extends Component {
             </form>
           </Grid>
           <Grid item xs={3} className={classes.aboutMe}>
-            <Typography className={classes.words}>{aboutUi}</Typography>
+            <Typography className={classes.words}>
+              <p dangerouslySetInnerHTML={aboutUi} />
+            </Typography>
           </Grid>
         </Grid>
         <br />
