@@ -17,7 +17,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactHashtag from 'react-hashtag';
 import 'css/userPage.css';
 import { HIDDEN } from 'constants/css.js';
 import { MESSAGE } from 'constants/links.js';
@@ -51,8 +50,6 @@ const promises = Promise.all([fetch(url1), fetch(url2), fetch(url3)]);
 var editorMessage = null;
 /* User-Entered About */
 var editorAbout = 'This is your about me.';
-/**User-entered photo url */
-var editorPhotoUrl = null;
 
 const styles = function() {
   return {
