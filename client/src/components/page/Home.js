@@ -25,6 +25,7 @@ import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
 import { SEARCH_SERVLET } from 'constants/links.js';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const styles = function() {
   return {
@@ -42,17 +43,13 @@ const styles = function() {
       width: '75%',
       marginLeft: '20%',
       marginRight: '20%',
-      backgroundColor: grey[50]
+      backgroundColor: grey[50],
+      borderStyle: 'solid',
+      borderColor: blue[300]
     },
     avatar: {
       margin: 24,
-      fontSize: 40
-    },
-    form: {
-      width: '90%',
-      marginTop: 24,
-      marginLeft: 30,
-      marginRight: 30
+      fontSize: 50
     },
     submit: {
       margin: 1,
@@ -61,7 +58,7 @@ const styles = function() {
     inputRoot: {
       width: '100%',
       borderStyle: 'solid',
-      borderColor: blue[300]
+      color: grey[300]
     },
     inputInput: {
       padding: '10px',
@@ -117,21 +114,36 @@ class Home extends Component {
     return (
       <Grid container component='main' className={classes.root}>
         <CssBaseline />
-        <div className={classes.paper}>
+        <Grid className={classes.paper}>
           <Typography className={classes.avatar} component='h1' variant='h5'>
             Tip of My Tongue
           </Typography>
-          <form action={SEARCH_SERVLET} method='POST' id='searchIn'>
-            <textarea name='search' className={classes.form} noValidate />
-            <input
+          <form
+            action={SEARCH_SERVLET}
+            method='POST'
+            id='searchIn'
+            style={{ width: '70%', textAlign: 'center' }}>
+            <TextField
+              name='search'
+              variant='outlined'
+              fullWidth
+              className={{ root: classes.inputRoot, input: classes.inputInput }}
+              noValidate
+              label='Search posts...'
+            />
+            <Button
               type='submit'
               value='Search'
+              color='primary'
+              variant='contained'
               onChange={event => {
                 searchVal = document.getElementById('searchIn', event).value;
               }}
-            />
+              style={{ marginTop: 10 }}>
+              Search
+            </Button>
           </form>
-        </div>
+        </Grid>
       </Grid>
     );
   }
