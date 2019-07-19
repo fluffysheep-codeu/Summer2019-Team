@@ -69,7 +69,13 @@ public class RestaurantServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String user = userService.getCurrentUser().getEmail();
-      String userText = "I added my favorite restaurant!\n" + name + ": " + bio;
+      String userText = "I added one of my favorite restaurants!\n" + name + ": " + bio;
+      Message message = new Message(user, userText);
+      datastore.storeMessage(message);
+    }
+    else {
+      String user = "Guest";
+      String userText = "I added one of my favorite restaurants!\n" + name + ": " + bio;
       Message message = new Message(user, userText);
       datastore.storeMessage(message);
     }
