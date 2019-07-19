@@ -20,16 +20,14 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import ReactCardFlip from 'react-card-flip';
 import Typography from '@material-ui/core/Typography';
 /**
  * A message card.
  * @return The html representation of the card.
  */
-
 const styles = function() {
   return {
     card: {
@@ -41,6 +39,40 @@ const styles = function() {
       paddingTop: '75%'
     }
   };
+};
+const style = function() {
+  return {
+    card: {
+      // flexDirection: 'row',
+      height: undefined,
+      width: undefined,
+      // alignSelf: 'center',
+      marginBottom: 3,
+      marginTop: 3,
+      borderRadius: 3
+    },
+    cardItem: {
+      borderLeftWidth: 5,
+      borderLeftColor: '#ea7e7a'
+    }
+  };
+};
+
+MessagesCard = function(props) {
+  return (
+    <div className='Message message-div'>
+      <CardActionArea>
+        <div className='message-header'>
+          <CardHeader title={props.user} subheader={props.timestamp} />
+        </div>
+        <CardContent>
+          <CardMedia>
+            {<div dangerouslySetInnerHTML={{ __html: props.text }} />}
+          </CardMedia>
+        </CardContent>
+      </CardActionArea>
+    </div>
+  );
 };
 
 class MessagesCard extends React.Component {
@@ -70,13 +102,51 @@ const Message = function(props) {
   );
 };
 
-Message.propTypes = {
-  /** Name of the user posting the message. */
-  user: PropTypes.string,
-  /** The timestamp of the message. */
-  timestamp: PropTypes.number,
-  /** The content of the message. */
-  text: PropTypes.string
-};
+class ImageCard extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isFlipped: false
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick(e) {
+    e.preventDefault();
+    this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
+  }
+  render() {
+    var { user, timestamp, text } = this.props;
+    timestamp = new Date(timestamp);
+    timestamp = timestamp.toString();
+    return (
+      <div>
+        <ReactCardFlip
+          isFlipped={this.state.isFlipped}
+          flipDirection='vertical'>
+          <Card key='front'>
+            <CardActionArea onClick={this.handleClick}>
+              <CardContent>
+                <CardMedia>
+                  {<div dangerouslySetInnerHTML={{ __html: text }} />}
+                </CardMedia>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card key='back'>
+            <CardActionArea onClick={this.handleClick}>
+              <CardHeader title={user} subheader={timestamp} />
 
-export default withStyles(styles)(MessagesCard);
+              <CardContent>
+                <CardMedia>
+                  <div dangerouslySetInnerHTML={{ __html: text }} />
+                </CardMedia>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </ReactCardFlip>
+      </div>
+    );
+  }
+}
+
+export default withStyles(styles)(ImageCard);

@@ -20,6 +20,8 @@ import { connect } from 'react-redux';
 import 'css/userPage.css';
 import { HIDDEN } from 'constants/css.js';
 import { MESSAGE } from 'constants/links.js';
+import { ImageCard } from 'components/ui/Message.js';
+import { MessagesCard } from 'constants/links.js';
 import Message from 'components/ui/Message.js';
 import {
   ABOUT_ME_SERVLET,
