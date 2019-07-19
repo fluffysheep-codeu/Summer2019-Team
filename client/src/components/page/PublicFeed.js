@@ -23,6 +23,10 @@ import {
 import Message from 'components/ui/Message.js';
 import { HIDDEN } from 'constants/css.js';
 import CustomMap from 'components/ui/CustomMap.js';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 
 const GOOGLE_MAPS_API_URL =
   'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi9TMtkY74gzfmjPkD7w1Tu-zyABHYlww&v=3.exp&libraries=geometry,drawing,places';
@@ -33,6 +37,27 @@ const promises = Promise.all([
   fetch(MESSAGE_FEED_SERVLET),
   fetch(RESTAURANT_SERVLET)
 ]);
+var currRest = { name: null, address: null, caption: null };
+
+const useStyles = function() {
+  return {
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap'
+    },
+    textField: {
+      marginLeft: 10,
+      marginRight: 10,
+      width: 200
+    },
+    dense: {
+      marginTop: 19
+    },
+    menu: {
+      width: 200
+    }
+  };
+};
 
 const buildMessages = function(content) {
   return (
@@ -42,6 +67,22 @@ const buildMessages = function(content) {
       text={content.text}
     />
   );
+};
+
+const submitRestaurant = function() {
+  fetch(RESTAURANT_SERVLET, {
+    method: 'POST',
+    headers: new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }),
+    body:
+      'name=' +
+      currRest.name +
+      '?address=' +
+      currRest.address +
+      '?bio=' +
+      currRest.caption
+  });
 };
 
 class PublicFeed extends Component {
@@ -101,6 +142,21 @@ class PublicFeed extends Component {
     this.setState({ translatedMessages });
   }
 
+  /** Will update the curr restaurant name from a input of a textfield */
+  handleChangeName = name => ({ target: { value } }) => {
+    currRest.name = value;
+  };
+
+  /** Will update the curr restaurant address from a input of a textfield */
+  handleChangeAddress = name => ({ target: { value } }) => {
+    currRest.address = value;
+  };
+
+  /** Will update the curr restaurant address from a input of a textfield */
+  handleChangeCaption = name => ({ target: { value } }) => {
+    currRest.caption = value;
+  };
+
   render() {
     const value = this.state.content;
     const messageList = value
@@ -126,10 +182,53 @@ class PublicFeed extends Component {
       }
       this.markers.keys = restaurantNames;
     }
+    const classes = useStyles();
     return (
       <div id='content' style={{ margin: 5 }}>
         <h1>Make a Post</h1>
         <hr />
+        <form className={classes.container} noValidate autoComplete='off'>
+          Add Your Favorite Restaurant's Name!
+          <br />
+          <TextField
+            id='standard-name'
+            label='Name'
+            className={'Test'}
+            margin='normal'
+            onChange={this.handleChangeName('name')}
+          />
+          <br />
+          Add the Restaurant's address <br />
+          (Ex. 1600 Amphitheatre Pkwy, Mountain View, CA)
+          <br />
+          <TextField
+            id='standard-name'
+            label='Location'
+            className={'Test'}
+            margin='normal'
+            onChange={this.handleChangeAddress('address')}
+          />
+          <br />
+          Add Why You Like the Restaurant.
+          <br />
+          <TextField
+            multiline
+            rows='4'
+            id='standard-name'
+            label='Caption'
+            className={'Test'}
+            margin='normal'
+            onChange={this.handleChangeCaption('caption')}
+          />
+          <br />
+          <Button
+            onClick={submitRestaurant}
+            className={classes.submit}
+            variant='contained'
+            color='primary'>
+            Submit
+          </Button>
+        </form>
         <form action={RESTAURANT_SERVLET} method='POST'>
           Add Your Favorite Restaurant's Name!
           <br />
