@@ -39,7 +39,7 @@ const styles = function() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      height: '30%',
+      height: '35%',
       width: '75%',
       marginLeft: '20%',
       marginRight: '20%',
@@ -49,7 +49,8 @@ const styles = function() {
     },
     avatar: {
       margin: 24,
-      fontSize: 50
+      fontSize: 50,
+      marginBottom: 30
     },
     submit: {
       margin: 1,

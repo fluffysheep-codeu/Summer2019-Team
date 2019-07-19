@@ -175,17 +175,17 @@ class UserPage extends Component {
               src={profPic.content}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Typography className={classes.header}>{userEmailParam}</Typography>
           </Grid>
           <Grid
             item
-            xs={6}
+            xs={5}
             style={{ height: 30, marginTop: 10, marginLeft: 60 }}>
-            <Typography className={classes.words} variant='h6'>
-              Enter your bio:
-            </Typography>
             <div className={hiddenIfViewingOther}>
+              <Typography className={classes.words} variant='h6'>
+                Enter your bio:
+              </Typography>
               <CKEditor
                 editor={ClassicEditor}
                 onInit={editor => {}}
