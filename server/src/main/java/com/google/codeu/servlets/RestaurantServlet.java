@@ -1,6 +1,9 @@
 package com.google.codeu.servlets;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
+import com.google.codeu.data.Message;
 import com.google.codeu.data.Restaurant;
 import com.google.gson.Gson;
 import com.google.maps.GeoApiContext;
@@ -61,6 +64,16 @@ public class RestaurantServlet extends HttpServlet {
     Double restLng = coord[1];
     Restaurant restaurant = new Restaurant(name, address, bio, restLat, restLng);
     datastore.storeRestaurant(restaurant);
+
+    // Create a post if the user is logged in
+    UserService userService = UserServiceFactory.getUserService();
+    if (userService.isUserLoggedIn()) {
+      String user = userService.getCurrentUser().getEmail();
+      String userText = "I added my favorite restaurant!\n" + name + ": " + bio;
+      Message message = new Message(user, userText);
+      datastore.storeMessage(message);
+    }
+
     response.sendRedirect("/feed");
   }
 
