@@ -70,6 +70,10 @@ const buildMessages = function(content) {
 };
 
 const submitRestaurant = function() {
+  // console.log(currRest.name);
+  // console.log(currRest.address);
+  // console.log(currRest.caption);
+
   fetch(RESTAURANT_SERVLET, {
     method: 'POST',
     headers: new Headers({
@@ -196,6 +200,7 @@ class PublicFeed extends Component {
             className={'Test'}
             margin='normal'
             onChange={this.handleChangeName('name')}
+            style={{ width: 300 }}
           />
           <br />
           Add the Restaurant's address <br />
@@ -207,6 +212,7 @@ class PublicFeed extends Component {
             className={'Test'}
             margin='normal'
             onChange={this.handleChangeAddress('address')}
+            style={{ width: 300 }}
           />
           <br />
           Add Why You Like the Restaurant.
@@ -219,6 +225,7 @@ class PublicFeed extends Component {
             className={'Test'}
             margin='normal'
             onChange={this.handleChangeCaption('caption')}
+            style={{ width: 300 }}
           />
           <br />
           <Button
@@ -228,34 +235,6 @@ class PublicFeed extends Component {
             color='primary'>
             Submit
           </Button>
-        </form>
-        <form action={RESTAURANT_SERVLET} method='POST'>
-          Add Your Favorite Restaurant's Name!
-          <br />
-          <textarea
-            name='name'
-            className='message-input'
-            style={{ height: `100%`, width: `50%` }}
-          />
-          <br />
-          Add the Restaurant's address <br />
-          (Ex. 1600 Amphitheatre Pkwy, Mountain View, CA)
-          <br />
-          <textarea
-            name='address'
-            className='message-input'
-            style={{ height: `100%`, width: `50%` }}
-          />
-          <br />
-          Add Why You Like the Restaurant.
-          <br />
-          <textarea
-            name='bio'
-            className='message-input'
-            style={{ height: `100%`, width: `50%` }}
-          />
-          <br />
-          <input type='submit' value='Submit' />
         </form>
         <hr />
         See Others Favorite Restaurants!
