@@ -70,23 +70,25 @@ const buildMessages = function(content) {
 };
 
 const submitRestaurant = function() {
-  // console.log(currRest.name);
-  // console.log(currRest.address);
-  // console.log(currRest.caption);
-
-  fetch(RESTAURANT_SERVLET, {
-    method: 'POST',
-    headers: new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }),
-    body:
-      'name=' +
-      currRest.name +
-      '?address=' +
-      currRest.address +
-      '?bio=' +
-      currRest.caption
-  });
+  if (!currRest.name || !currRest.address || !currRest.caption) {
+    window.location.reload();
+    return;
+  } else {
+    fetch(RESTAURANT_SERVLET, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }),
+      body:
+        'name=' +
+        currRest.name +
+        '&address=' +
+        currRest.address +
+        '&bio=' +
+        currRest.caption
+    });
+    window.location.reload();
+  }
 };
 
 class PublicFeed extends Component {
