@@ -72,8 +72,7 @@ public class RestaurantServlet extends HttpServlet {
       String userText = "I added one of my favorite restaurants!\n" + name + ": " + bio;
       Message message = new Message(user, userText);
       datastore.storeMessage(message);
-    }
-    else {
+    } else {
       String user = "Guest";
       String userText = "I added one of my favorite restaurants!\n" + name + ": " + bio;
       Message message = new Message(user, userText);
